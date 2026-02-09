@@ -1,0 +1,257 @@
+.daily-challenge-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.daily-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  color: var(--accent-primary);
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.daily-problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.daily-problem-card {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.daily-problem-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.daily-problem-header {
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.problem-date-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.calendar-icon {
+  font-size: 1.75rem;
+  color: var(--accent-primary);
+}
+
+.problem-date {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.time-ago {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+}
+
+.daily-problem-content {
+  padding: 2rem;
+}
+
+.daily-problem-title {
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.daily-problem-title:hover h3 {
+  color: var(--accent-primary);
+}
+
+.daily-problem-title .problem-number {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.daily-problem-title h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.problem-approach {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.problem-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.problem-complexity {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.complexity-item {
+  color: var(--text-secondary);
+}
+
+.complexity-item strong {
+  color: var(--text-primary);
+  margin-right: 0.5rem;
+}
+
+.problem-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.view-details-btn,
+.leetcode-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.view-details-btn {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.view-details-btn:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.leetcode-btn {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.leetcode-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.no-daily {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+}
+
+.no-daily-icon {
+  font-size: 4rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.no-daily p {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin: 0.5rem 0;
+}
+
+.no-daily-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .daily-problem-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .problem-complexity {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .problem-actions {
+    flex-direction: column;
+  }
+
+  .view-details-btn,
+  .leetcode-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

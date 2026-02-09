@@ -1,0 +1,297 @@
+{
+  "username": "SomayCoder880",
+  "lastUpdated": "2026-02-08T15:56:23.584Z",
+  "totalSolved": 17,
+  "problemStats": [
+    {
+      "difficulty": "All",
+      "count": 3836
+    },
+    {
+      "difficulty": "Easy",
+      "count": 925
+    },
+    {
+      "difficulty": "Medium",
+      "count": 2004
+    },
+    {
+      "difficulty": "Hard",
+      "count": 907
+    }
+  ],
+  "solvedByDifficulty": [
+    {
+      "difficulty": "All",
+      "count": 619
+    },
+    {
+      "difficulty": "Easy",
+      "count": 186
+    },
+    {
+      "difficulty": "Medium",
+      "count": 375
+    },
+    {
+      "difficulty": "Hard",
+      "count": 58
+    }
+  ],
+  "beatsStats": [
+    {
+      "difficulty": "Easy",
+      "percentage": 97.05
+    },
+    {
+      "difficulty": "Medium",
+      "percentage": 98.11
+    },
+    {
+      "difficulty": "Hard",
+      "percentage": 93.13
+    }
+  ],
+  "languageStats": [
+    {
+      "languageName": "C++",
+      "problemsSolved": 617
+    },
+    {
+      "languageName": "Java",
+      "problemsSolved": 7
+    },
+    {
+      "languageName": "JavaScript",
+      "problemsSolved": 1
+    }
+  ],
+  "skillStats": {
+    "advanced": [
+      {
+        "tagName": "Data Stream",
+        "tagSlug": "data-stream",
+        "problemsSolved": 5
+      },
+      {
+        "tagName": "Game Theory",
+        "tagSlug": "game-theory",
+        "problemsSolved": 2
+      },
+      {
+        "tagName": "Rolling Hash",
+        "tagSlug": "rolling-hash",
+        "problemsSolved": 2
+      },
+      {
+        "tagName": "Backtracking",
+        "tagSlug": "backtracking",
+        "problemsSolved": 21
+      },
+      {
+        "tagName": "Quickselect",
+        "tagSlug": "quickselect",
+        "problemsSolved": 2
+      },
+      {
+        "tagName": "Dynamic Programming",
+        "tagSlug": "dynamic-programming",
+        "problemsSolved": 88
+      },
+      {
+        "tagName": "Divide and Conquer",
+        "tagSlug": "divide-and-conquer",
+        "problemsSolved": 19
+      },
+      {
+        "tagName": "Trie",
+        "tagSlug": "trie",
+        "problemsSolved": 9
+      },
+      {
+        "tagName": "Union-Find",
+        "tagSlug": "union-find",
+        "problemsSolved": 10
+      },
+      {
+        "tagName": "Binary Indexed Tree",
+        "tagSlug": "binary-indexed-tree",
+        "problemsSolved": 1
+      },
+      {
+        "tagName": "Segment Tree",
+        "tagSlug": "segment-tree",
+        "problemsSolved": 2
+      },
+      {
+        "tagName": "Monotonic Stack",
+        "tagSlug": "monotonic-stack",
+        "problemsSolved": 12
+      },
+      {
+        "tagName": "Monotonic Queue",
+        "tagSlug": "monotonic-queue",
+        "problemsSolved": 5
+      },
+      {
+        "tagName": "Topological Sort",
+        "tagSlug": "topological-sort",
+        "problemsSolved": 6
+      },
+      {
+        "tagName": "Shortest Path",
+        "tagSlug": "shortest-path",
+        "problemsSolved": 5
+      }
+    ],
+    "intermediate": [
+      {
+        "tagName": "Tree",
+        "tagSlug": "tree",
+        "problemsSolved": 43
+      },
+      {
+        "tagName": "Binary Tree",
+        "tagSlug": "binary-tree",
+        "problemsSolved": 37
+      },
+      {
+        "tagName": "Hash Table",
+        "tagSlug": "hash-table",
+        "problemsSolved": 135
+      },
+      {
+        "tagName": "Ordered Set",
+        "tagSlug": "ordered-set",
+        "problemsSolved": 9
+      },
+      {
+        "tagName": "Graph Theory",
+        "tagSlug": "graph",
+        "problemsSolved": 25
+      },
+      {
+        "tagName": "Greedy",
+        "tagSlug": "greedy",
+        "problemsSolved": 84
+      },
+      {
+        "tagName": "Binary Search",
+        "tagSlug": "binary-search",
+        "problemsSolved": 51
+      },
+      {
+        "tagName": "Depth-First Search",
+        "tagSlug": "depth-first-search",
+        "problemsSolved": 49
+      },
+      {
+        "tagName": "Breadth-First Search",
+        "tagSlug": "breadth-first-search",
+        "problemsSolved": 42
+      },
+      {
+        "tagName": "Recursion",
+        "tagSlug": "recursion",
+        "problemsSolved": 17
+      },
+      {
+        "tagName": "Sliding Window",
+        "tagSlug": "sliding-window",
+        "problemsSolved": 37
+      },
+      {
+        "tagName": "Bit Manipulation",
+        "tagSlug": "bit-manipulation",
+        "problemsSolved": 29
+      },
+      {
+        "tagName": "Math",
+        "tagSlug": "math",
+        "problemsSolved": 81
+      },
+      {
+        "tagName": "Randomized",
+        "tagSlug": "randomized",
+        "problemsSolved": 1
+      },
+      {
+        "tagName": "Design",
+        "tagSlug": "design",
+        "problemsSolved": 21
+      },
+      {
+        "tagName": "Iterator",
+        "tagSlug": "iterator",
+        "problemsSolved": 1
+      },
+      {
+        "tagName": "Brainteaser",
+        "tagSlug": "brainteaser",
+        "problemsSolved": 3
+      }
+    ],
+    "fundamental": [
+      {
+        "tagName": "Array",
+        "tagSlug": "array",
+        "problemsSolved": 356
+      },
+      {
+        "tagName": "Matrix",
+        "tagSlug": "matrix",
+        "problemsSolved": 41
+      },
+      {
+        "tagName": "String",
+        "tagSlug": "string",
+        "problemsSolved": 146
+      },
+      {
+        "tagName": "Simulation",
+        "tagSlug": "simulation",
+        "problemsSolved": 40
+      },
+      {
+        "tagName": "Enumeration",
+        "tagSlug": "enumeration",
+        "problemsSolved": 16
+      },
+      {
+        "tagName": "Sorting",
+        "tagSlug": "sorting",
+        "problemsSolved": 89
+      },
+      {
+        "tagName": "Stack",
+        "tagSlug": "stack",
+        "problemsSolved": 43
+      },
+      {
+        "tagName": "Queue",
+        "tagSlug": "queue",
+        "problemsSolved": 13
+      },
+      {
+        "tagName": "Linked List",
+        "tagSlug": "linked-list",
+        "problemsSolved": 29
+      },
+      {
+        "tagName": "Two Pointers",
+        "tagSlug": "two-pointers",
+        "problemsSolved": 71
+      }
+    ]
+  },
+  "calendar": {
+    "activeYears": [
+      2024,
+      2025,
+      2026
+    ],
+    "streak": 4,
+    "totalActiveDays": 18,
+    "submissionCalendar": "{\"1767225600\": 1, \"1767312000\": 1, \"1767398400\": 3, \"1767484800\": 10, \"1767657600\": 2, \"1768003200\": 1, \"1768089600\": 4, \"1768176000\": 1, \"1768694400\": 12, \"1769212800\": 9, \"1769299200\": 7, \"1769385600\": 1, \"1769904000\": 15, \"1770076800\": 1, \"1770163200\": 1, \"1770336000\": 1, \"1770422400\": 1, \"1770508800\": 14}"
+  }
+}
