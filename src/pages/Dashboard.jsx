@@ -1,8 +1,10 @@
 import "./Dashboard.css";
 
+import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import {
   FiCheckCircle,
   FiCode,
+  FiStar,
   FiTarget,
   FiTrendingUp,
   FiZap,
@@ -10,6 +12,7 @@ import {
 
 import { Link } from "react-router-dom";
 import React from "react";
+import { SiLeetcode } from "react-icons/si";
 import problems from "../data/problems";
 
 function Dashboard() {
@@ -21,8 +24,10 @@ function Dashboard() {
   ).length;
   const hardProblems = problems.filter((p) => p.difficulty === "Hard").length;
 
-  const contestProblems = problems.filter((p) => p.type === "contest").length;
-  const dailyProblems = problems.filter((p) => p.type === "daily").length;
+  const contestProblems = problems.filter(
+    (p) => p.category === "Contest",
+  ).length;
+  const dailyProblems = problems.filter((p) => p.category === "Company").length;
 
   // Get recent problems
   const recentProblems = [...problems]
@@ -54,6 +59,7 @@ function Dashboard() {
       icon: <FiCheckCircle />,
       color: "var(--accent-primary)",
       bgColor: "rgba(99, 102, 241, 0.1)",
+      link: "/problems",
     },
     {
       label: "Easy",
@@ -61,6 +67,7 @@ function Dashboard() {
       icon: <FiTarget />,
       color: "var(--easy)",
       bgColor: "rgba(0, 184, 163, 0.1)",
+      link: "/problems?difficulty=Easy",
     },
     {
       label: "Medium",
@@ -68,6 +75,7 @@ function Dashboard() {
       icon: <FiTrendingUp />,
       color: "var(--medium)",
       bgColor: "rgba(255, 192, 30, 0.1)",
+      link: "/problems?difficulty=Medium",
     },
     {
       label: "Hard",
@@ -75,6 +83,7 @@ function Dashboard() {
       icon: <FiZap />,
       color: "var(--hard)",
       bgColor: "rgba(255, 55, 95, 0.1)",
+      link: "/problems?difficulty=Hard",
     },
   ];
 
@@ -93,25 +102,55 @@ function Dashboard() {
 
   return (
     <div className="container dashboard">
-      <div className="dashboard-header">
-        <h1 className="page-title">
-          <FiCode className="title-icon" />
-          Dashboard
-        </h1>
-        <p className="page-subtitle">
-          Track your LeetCode journey and progress
-        </p>
+      {/* Hero Section */}
+      <div className="dashboard-hero">
+        <div className="hero-content">
+          <div className="hero-badge">
+            <FiStar className="badge-icon" />
+            Welcome to My Journey
+          </div>
+          <h1 className="page-title">
+            <FiCode className="title-icon" />
+            LeetCode Dashboard
+          </h1>
+          <p className="page-subtitle"></p>
+          <div className="hero-stats-quick">
+            <div className="quick-stat">
+              <span className="quick-stat-value">{totalProblems}</span>
+              <span className="quick-stat-label">Problems Solved</span>
+            </div>
+            <div className="quick-stat">
+              <span className="quick-stat-value">
+                {String(
+                  (totalProblems > 0
+                    ? ((easyProblems + mediumProblems) / totalProblems) * 100
+                    : 0
+                  ).toFixed(0),
+                )}
+                %
+              </span>
+              <span className="quick-stat-label">Success Rate</span>
+            </div>
+          </div>
+        </div>
+        <div className="hero-decoration">
+          <div className="decoration-circle circle-1"></div>
+          <div className="decoration-circle circle-2"></div>
+          <div className="decoration-circle circle-3"></div>
+        </div>
       </div>
 
       {/* Stats Grid */}
       <div className="stats-grid">
         {stats.map((stat, index) => (
-          <div
-            key={index}
+          <Link
+            key={stat.label}
+            to={stat.link}
             className="stat-card"
             style={{
               borderLeft: `4px solid ${stat.color}`,
               background: stat.bgColor,
+              textDecoration: "none",
             }}
           >
             <div className="stat-icon" style={{ color: stat.color }}>
@@ -121,7 +160,7 @@ function Dashboard() {
               <div className="stat-value">{stat.value}</div>
               <div className="stat-label">{stat.label}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -349,25 +388,71 @@ function Dashboard() {
 
       {/* Activity Summary */}
       <div className="activity-summary">
-        <div className="activity-item">
+        <Link to="/contests" className="activity-item activity-link">
           <FiTarget className="activity-icon" />
           <div className="activity-content">
             <div className="activity-value">{contestProblems}</div>
             <div className="activity-label">Contest Problems</div>
           </div>
-        </div>
-        <div className="activity-item">
+        </Link>
+        <Link to="/daily" className="activity-item activity-link">
           <FiZap className="activity-icon" />
           <div className="activity-content">
             <div className="activity-value">{dailyProblems}</div>
-            <div className="activity-label">Daily Challenges</div>
+            <div className="activity-label">Company Problems</div>
           </div>
-        </div>
-        <div className="activity-item">
+        </Link>
+        <Link to="/problems" className="activity-item activity-link">
           <FiCode className="activity-icon" />
           <div className="activity-content">
             <div className="activity-value">{allTopics.length}</div>
             <div className="activity-label">Unique Topics</div>
+          </div>
+        </Link>
+      </div>
+
+      {/* Social Links Section */}
+      <div className="social-links-section">
+        <div className="social-container">
+          <h2 className="social-title">
+            <FiCode className="social-title-icon" />
+            Let's Connect
+          </h2>
+          <p className="social-subtitle"></p>
+          <div className="social-icons">
+            <a
+              href="https://www.linkedin.com/in/somay-lal-pawa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn linkedin"
+              title="LinkedIn"
+            >
+              <FaLinkedin className="social-icon" />
+              <span className="social-label">LinkedIn</span>
+            </a>
+            <a
+              href="https://leetcode.com/u/SomayCoder880/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn leetcode"
+              title="LeetCode"
+            >
+              <SiLeetcode className="social-icon" />
+              <span className="social-label">LeetCode</span>
+            </a>
+            <a
+              href="https://x.com/somay880"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-icon-btn twitter"
+              title="Twitter"
+            >
+              <FaTwitter className="social-icon" />
+              <span className="social-label">Twitter</span>
+            </a>
+          </div>
+          <div className="social-decoration">
+            <div className="deco-line"></div>
           </div>
         </div>
       </div>

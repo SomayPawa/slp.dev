@@ -1,21 +1,18 @@
 import "./Contests.css";
 
-import { FiAward, FiClock, FiExternalLink, FiTrendingUp } from "react-icons/fi";
+import { FiAward, FiCode, FiExternalLink, FiTrendingUp } from "react-icons/fi";
 
 import React from "react";
 import contests from "../data/contests";
 
 function Contests() {
-  const contestList = contests.sort(
+  const contestList = [...contests].sort(
     (a, b) => b.contestNumber - a.contestNumber,
   );
 
   const totalProblems = contestList.reduce(
     (sum, c) => sum + c.problems.length,
     0,
-  );
-  const avgRank = Math.floor(
-    contestList.reduce((sum, c) => sum + c.rank, 0) / contestList.length,
   );
 
   const getDifficultyColor = (difficulty) => {
@@ -38,9 +35,7 @@ function Contests() {
           <FiAward className="title-icon" />
           Contest Solutions
         </h1>
-        <p className="page-subtitle">
-          Track your contest performance and progress
-        </p>
+        <p className="page-subtitle"></p>
       </div>
 
       {/* Stats Section */}
@@ -62,16 +57,6 @@ function Contests() {
           <div className="stat-content">
             <div className="stat-value">{totalProblems}</div>
             <div className="stat-label">Problems Solved</div>
-          </div>
-        </div>
-
-        <div className="stat-card stats-rank">
-          <div className="stat-icon">
-            <FiClock size={24} />
-          </div>
-          <div className="stat-content">
-            <div className="stat-value">Avg #{avgRank}</div>
-            <div className="stat-label">Average Rank</div>
           </div>
         </div>
       </div>
@@ -96,10 +81,6 @@ function Contests() {
                   })}
                 </span>
               </div>
-              <div className="contest-rank-badge">
-                <span className="rank-label">Rank</span>
-                <span className="rank-value">#{contest.rank}</span>
-              </div>
             </div>
 
             <div className="contest-stats-mini">
@@ -113,12 +94,14 @@ function Contests() {
                 <span className="mini-stat-label">Duration</span>
                 <span className="mini-stat-value">{contest.duration}m</span>
               </div>
-              <div className="mini-stat">
-                <span className="mini-stat-label">Participants</span>
-                <span className="mini-stat-value">
-                  {contest.participants.toLocaleString()}
-                </span>
-              </div>
+              {contest.participants && (
+                <div className="mini-stat">
+                  <span className="mini-stat-label">Participants</span>
+                  <span className="mini-stat-value">
+                    {contest.participants.toLocaleString()}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="contest-problems">
@@ -175,11 +158,23 @@ function Contests() {
                         ))}
                       </div>
 
-                      <div className="card-action">
+                      <div className="card-actions">
                         <span className="view-btn">
                           <FiExternalLink size={14} />
-                          View Problem
+                          Problem
                         </span>
+                        {problem.solutionUrl && (
+                          <a
+                            href={problem.solutionUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="solution-btn"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <FiCode size={14} />
+                            Solution
+                          </a>
+                        )}
                       </div>
                     </a>
                   ))}

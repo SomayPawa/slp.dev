@@ -372,10 +372,13 @@
   border: 1px solid var(--border-color);
 }
 
-.card-action {
+.card-actions {
   margin-top: auto;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .view-btn {
@@ -386,6 +389,25 @@
   font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.3s ease;
+}
+
+.solution-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--easy);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  background: rgba(0, 184, 163, 0.1);
+  border-radius: 6px;
+}
+
+.solution-btn:hover {
+  background: rgba(0, 184, 163, 0.2);
+  transform: translateY(-2px);
 }
 
 .contest-problem-card:hover .view-btn {

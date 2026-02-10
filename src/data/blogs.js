@@ -1,155 +1,150 @@
-// Dummy Blog Posts - Add your real blogs here!
+// Blog Posts - Technical Articles
 
 const blogs = [
   {
     id: 1,
-    title: "Understanding Two Sum - The Complete Guide",
-    slug: "understanding-two-sum",
+    title: "Dynamic Programming: Quick Start Guide",
+    slug: "dp-quick-start-guide",
     excerpt:
-      "Learn how to solve the Two Sum problem efficiently using different approaches including brute force and hash table.",
+      "Learn the core concepts of DP - when to use it, how to approach problems, and key patterns to recognize.",
     content: `
-# Understanding Two Sum - The Complete Guide
+# Dynamic Programming: Quick Start Guide
 
-## Problem Statement
-Given an array of integers nums and an integer target, return the indices of the two numbers that add up to the target.
+## What is DP?
 
-## Approach 1: Brute Force
-Time Complexity: O(n²)
+DP is a technique for solving problems with:
+- **Overlapping Subproblems**: Same calculations repeat
+- **Optimal Substructure**: Build answer from smaller solutions
 
-## Approach 2: Hash Table (Optimal)
-Time Complexity: O(n)
-Space Complexity: O(n)
+## Two Approaches
 
-This approach uses a hash map to store values we've seen so far, allowing us to find the complement in constant time.
+### Memoization (Top-Down)
+\`\`\`cpp
+int fib(int n, vector<int>& dp) {
+    if (n <= 1) return n;
+    if (dp[n] != -1) return dp[n];
+    return dp[n] = fib(n-1, dp) + fib(n-2, dp);
+}
+\`\`\`
 
-## Key Takeaways
-- Hash tables are powerful for reducing time complexity
-- Always think about space-time tradeoffs
-- Test edge cases thoroughly
+### Tabulation (Bottom-Up)
+\`\`\`cpp
+int fib(int n) {
+    if (n <= 1) return n;
+    vector<int> dp(n + 1);
+    dp[0] = 0; dp[1] = 1;
+    for (int i = 2; i <= n; i++)
+        dp[i] = dp[i-1] + dp[i-2];
+    return dp[n];
+}
+\`\`\`
+
+## 5 Steps to Solve Any DP Problem
+
+1. **Identify**: Look for "count ways", "min/max", or choices affecting future
+2. **Define State**: What info do you need? (index, capacity, count, etc.)
+3. **Recurrence**: Express answer using smaller subproblems
+4. **Base Case**: Handle the smallest cases directly
+5. **Optimize**: Add memoization or convert to tabulation
+
+## Common Patterns
+
+| Pattern | Example Problems |
+|---------|-----------------|
+| Linear DP | Climbing Stairs, House Robber |
+| 0/1 Decision | Knapsack, Subset Sum |
+| Two Sequence | LCS, Edit Distance |
+| Interval DP | Burst Balloons, Matrix Chain |
+
+## Must-Solve Problems
+
+**Start Here**: Fibonacci → Climbing Stairs → House Robber → Coin Change
+
+**Then**: LIS → LCS → Knapsack → Edit Distance → Unique Paths
+
+## Quick Tips
+
+- Start with recursion, then add memoization
+- Draw the recursion tree to see overlaps
+- Use \`long long\` to avoid overflow
+- Check base cases carefully
+
+Happy Coding!
     `,
-    difficulty: "Easy",
-    tags: ["Array", "Hash Table", "Two Pointers"],
+    difficulty: "Medium",
+    tags: ["Dynamic Programming", "Algorithms", "Tutorial"],
     author: "SomayCoder880",
-    date: "2026-02-08",
+    date: "2026-02-10",
     readTime: 5,
   },
   {
     id: 2,
-    title: "Mastering Sliding Window Technique",
-    slug: "mastering-sliding-window",
+    title: "LeetCode 3836: Maximum Score Using K Pairs",
+    slug: "maximum-score-k-pairs-3d-dp",
     excerpt:
-      "Deep dive into the sliding window technique and how it solves substring, subarray, and window problems efficiently.",
+      "3D DP solution for selecting exactly k pairs from two arrays to maximize sum of products.",
     content: `
-# Mastering Sliding Window Technique
+# LeetCode 3836: Maximum Score Using K Pairs
 
-## What is Sliding Window?
-A technique for finding subarrays/substrings that satisfy certain conditions.
+## Problem
+Select exactly \`k\` pairs from \`nums1\` and \`nums2\` maintaining relative order. Maximize sum of products.
 
-## Key Patterns
-1. Fixed Window Size
-2. Variable Window Size
-3. Two Pointer Variation
+## Approach
+Use 3D DP: \`solve(i, j, cnt)\` where i, j are indices and cnt is pairs selected.
 
-## Common Problems
-- Longest Substring Without Repeating Characters
-- Minimum Window Substring
-- Maximum Sum Subarray of Size K
+**Choices at each state:**
+- Take pair: \`nums1[i] * nums2[j] + solve(i+1, j+1, cnt+1)\`
+- Skip nums1[i]: \`solve(i+1, j, cnt)\`
+- Skip nums2[j]: \`solve(i, j+1, cnt)\`
 
-## Implementation Tips
-- Use pointers to maintain window boundaries
-- Expand and contract the window based on conditions
-- Use a hash map or frequency counter for character tracking
-    `,
-    difficulty: "Medium",
-    tags: ["Sliding Window", "String", "Array"],
-    author: "SomayCoder880",
-    date: "2026-02-07",
-    readTime: 8,
-  },
-  {
-    id: 3,
-    title: "Dynamic Programming Fundamentals",
-    slug: "dp-fundamentals",
-    excerpt:
-      "Introduction to dynamic programming with examples like Fibonacci, coin change, and longest palindrome.",
-    content: `
-# Dynamic Programming Fundamentals
+## Solution
 
-## What is DP?
-Dynamic Programming is an optimization technique that solves complex problems by breaking them down into overlapping subproblems.
-
-## Characteristics
-- Optimal Substructure
-- Overlapping Subproblems
-- Memoization or Tabulation
-
-## Classic Examples
-1. Fibonacci Sequence
-2. Coin Change Problem
-3. Longest Common Subsequence
-4. Knapsack Problem
-
-## Memoization vs Tabulation
-- Memoization: Top-down approach with caching
-- Tabulation: Bottom-up approach with table building
-
-## Practice Problems
-- Start with simple problems like Fibonacci
-- Gradually move to 2D DP problems
-- Focus on identifying subproblem structure
-    `,
-    difficulty: "Hard",
-    tags: ["Dynamic Programming", "Optimization"],
-    author: "SomayCoder880",
-    date: "2026-02-06",
-    readTime: 12,
-  },
-  {
-    id: 4,
-    title: "Binary Search Deep Dive",
-    slug: "binary-search-deep-dive",
-    excerpt:
-      "Comprehensive guide to binary search including edge cases, variations, and common mistakes.",
-    content: `
-# Binary Search Deep Dive
-
-## When to Use Binary Search
-- Data must be sorted
-- Looking for a target value
-- Need to optimize from O(n) to O(log n)
-
-## Template
-\`\`\`python
-def binarySearch(nums, target):
-    left, right = 0, len(nums) - 1
+\`\`\`cpp
+class Solution {
+public:
+    const long long NEG_INF = -1e18;
     
-    while left <= right:
-        mid = (left + right) // 2
-        if nums[mid] == target:
-            return mid
-        elif nums[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
+    long long solve(int i, int j, int cnt, vector<int>& nums1, 
+                    vector<int>& nums2, int& k, 
+                    vector<vector<vector<long long>>>& dp, 
+                    int& n, int& m) {
+        if (cnt == k) return 0;
+        if (i >= n || j >= m) return NEG_INF;
+        if (n - i < k - cnt || m - j < k - cnt) return NEG_INF;
+        if (dp[i][j][cnt] != NEG_INF) return dp[i][j][cnt];
+        
+        long long take = 1LL * nums1[i] * nums2[j] + 
+                         solve(i+1, j+1, cnt+1, nums1, nums2, k, dp, n, m);
+        long long skip1 = solve(i+1, j, cnt, nums1, nums2, k, dp, n, m);
+        long long skip2 = solve(i, j+1, cnt, nums1, nums2, k, dp, n, m);
+        
+        return dp[i][j][cnt] = max(take, max(skip1, skip2));
+    }
     
-    return -1
+    long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
+        int n = nums1.size(), m = nums2.size();
+        vector<vector<vector<long long>>> dp(
+            n + 1, vector<vector<long long>>(m + 1, vector<long long>(k + 1, NEG_INF)));
+        return solve(0, 0, 0, nums1, nums2, k, dp, n, m);
+    }
+};
 \`\`\`
 
-## Common Mistakes
-- Off-by-one errors in boundary conditions
-- Not handling edge cases
-- Infinite loops due to pointer movement
+## Complexity
+- **Time**: O(n × m × k)
+- **Space**: O(n × m × k)
 
-## Variations
-- Binary Search on Answer
-- Binary Search in Rotated Array
-- Binary Search with Duplicates
+## Key Points
+- Pruning check prevents TLE
+- Use \`1LL *\` to avoid overflow
+- 3D state: position in both arrays + count
     `,
-    difficulty: "Medium",
-    tags: ["Binary Search", "Searching"],
+    difficulty: "Hard",
+    tags: ["Dynamic Programming", "Memoization", "3D DP"],
     author: "SomayCoder880",
-    date: "2026-02-05",
-    readTime: 7,
+    date: "2026-02-09",
+    readTime: 5,
+    leetcodeNumber: 3836,
   },
 ];
 

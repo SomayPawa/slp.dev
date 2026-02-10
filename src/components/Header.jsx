@@ -20,7 +20,7 @@ function Header({ theme, toggleTheme }) {
     { path: "/", label: "Dashboard", icon: <FiTrendingUp /> },
     { path: "/problems", label: "All Problems", icon: <FiCode /> },
     { path: "/contests", label: "Contests", icon: <FiAward /> },
-    { path: "/daily", label: "Daily Challenge", icon: <FiCalendar /> },
+    { path: "/daily", label: "Company Problems", icon: <FiCalendar /> },
     { path: "/blogs", label: "Blogs", icon: <FiBookOpen /> },
   ];
 

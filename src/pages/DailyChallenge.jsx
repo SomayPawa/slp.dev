@@ -1,140 +1,187 @@
 import "./DailyChallenge.css";
 
-import { FiCalendar, FiClock, FiExternalLink } from "react-icons/fi";
-import { differenceInDays, format, parseISO } from "date-fns";
+import { FiBriefcase, FiCode, FiExternalLink, FiSearch } from "react-icons/fi";
+import React, { useMemo, useState } from "react";
 
-import React from "react";
 import dailyChallenges from "../data/dailyChallenges";
 
 function DailyChallenge() {
-  const dailyProblems = dailyChallenges.sort(
-    (a, b) => new Date(b.date) - new Date(a.date),
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Group problems by company
+  const groupedByCompany = useMemo(() => {
+    const groups = {};
+    dailyChallenges.forEach((problem) => {
+      const company = problem.company || "Other";
+      if (!groups[company]) {
+        groups[company] = [];
+      }
+      groups[company].push(problem);
+    });
+    return groups;
+  }, []);
+
+  // Get all unique companies
+  const allCompanies = Object.keys(groupedByCompany).sort();
+
+  // Filter companies based on search
+  const filteredCompanies = allCompanies.filter((company) =>
+    company.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const today = new Date();
+  // Count total problems
+  const totalProblems = dailyChallenges.length;
 
-  const getDifficultyColor = (difficulty) => {
+  const getDifficultyClass = (difficulty) => {
     switch (difficulty) {
       case "Easy":
-        return "var(--easy)";
+        return "easy";
       case "Medium":
-        return "var(--medium)";
+        return "medium";
       case "Hard":
-        return "var(--hard)";
+        return "hard";
       default:
-        return "var(--text-secondary)";
+        return "";
     }
-  };
-
-  const getTimeAgo = (dateString) => {
-    const date = parseISO(dateString);
-    const days = differenceInDays(today, date);
-
-    if (days === 0) return "Today";
-    if (days === 1) return "Yesterday";
-    if (days < 7) return `${days} days ago`;
-    if (days < 30)
-      return `${Math.floor(days / 7)} week${Math.floor(days / 7) > 1 ? "s" : ""} ago`;
-    return `${Math.floor(days / 30)} month${Math.floor(days / 30) > 1 ? "s" : ""} ago`;
   };
 
   return (
     <div className="container daily-challenge-page">
       <div className="page-header">
         <h1 className="page-title">
-          <FiCalendar className="title-icon" />
-          Daily Challenges
+          <FiBriefcase className="title-icon" />
+          Company Problems
         </h1>
         <p className="page-subtitle">
-          {dailyProblems.length} daily challenge
-          {dailyProblems.length !== 1 ? "s" : ""} completed
+          {totalProblems} problem{totalProblems !== 1 ? "s" : ""} from{" "}
+          {allCompanies.length} companies
         </p>
       </div>
 
-      <div className="daily-stats">
+      {/* Search Bar */}
+      <div className="company-search-container">
+        <div className="search-input-wrapper">
+          <FiSearch className="search-icon" />
+          <input
+            type="text"
+            className="company-search-input"
+            placeholder="Search company (e.g., Google, Amazon, Meta...)"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        {searchQuery && (
+          <button
+            className="clear-search-btn"
+            onClick={() => setSearchQuery("")}
+          >
+            Clear
+          </button>
+        )}
+      </div>
+
+      {/* Stats */}
+      <div className="company-stats">
         <div className="stat-card">
-          <FiClock className="stat-icon" />
+          <FiBriefcase className="stat-icon" />
           <div className="stat-info">
-            <div className="stat-value">{dailyProblems.length}</div>
-            <div className="stat-label">Total Solved</div>
+            <div className="stat-value">{allCompanies.length}</div>
+            <div className="stat-label">Companies</div>
           </div>
         </div>
         <div className="stat-card">
-          <FiCalendar className="stat-icon" />
+          <FiCode className="stat-icon" />
           <div className="stat-info">
-            <div className="stat-value">
-              {
-                dailyProblems.filter((p) => {
-                  const days = differenceInDays(today, parseISO(p.date));
-                  return days < 7;
-                }).length
-              }
-            </div>
-            <div className="stat-label">This Week</div>
+            <div className="stat-value">{totalProblems}</div>
+            <div className="stat-label">Total Problems</div>
           </div>
         </div>
       </div>
 
-      <div className="daily-problems-list">
-        {dailyProblems.map((problem) => (
-          <div key={problem.id} className="daily-problem-card">
-            <div className="daily-problem-header">
-              <div className="problem-date-info">
-                <FiCalendar className="calendar-icon" />
-                <div>
-                  <div className="problem-date">
-                    {format(parseISO(problem.date), "EEEE, MMMM d, yyyy")}
-                  </div>
-                  <div className="time-ago">{getTimeAgo(problem.date)}</div>
-                </div>
-              </div>
-              <span
-                className="difficulty-badge"
-                style={{
-                  color: getDifficultyColor(problem.difficulty),
-                  borderColor: getDifficultyColor(problem.difficulty),
-                }}
-              >
-                {problem.difficulty}
+      {/* Company Sections */}
+      <div className="company-sections">
+        {filteredCompanies.map((company) => (
+          <div key={company} className="company-section">
+            <div className="company-header">
+              <h2 className="company-name">
+                <FiBriefcase className="company-icon" />
+                {company}
+              </h2>
+              <span className="problem-count">
+                {groupedByCompany[company].length} problem
+                {groupedByCompany[company].length !== 1 ? "s" : ""}
               </span>
             </div>
 
-            <div className="daily-problem-content">
-              <div className="daily-problem-title">
-                <span className="problem-number">#{problem.number}</span>
-                <h3>{problem.title}</h3>
-              </div>
+            <div className="company-problems-list">
+              {groupedByCompany[company].map((problem) => (
+                <div key={problem.id} className="company-problem-card">
+                  <div className="problem-info">
+                    <span className="problem-number">#{problem.number}</span>
+                    <span className="problem-title">{problem.title}</span>
+                    <span
+                      className={`difficulty-chip ${getDifficultyClass(problem.difficulty)}`}
+                    >
+                      {problem.difficulty}
+                    </span>
+                  </div>
 
-              <div className="problem-topics">
-                {problem.topics.map((topic, index) => (
-                  <span key={index} className="topic-tag">
-                    {topic}
-                  </span>
-                ))}
-              </div>
+                  <div className="problem-topics">
+                    {problem.topics.map((topic, idx) => (
+                      <span
+                        key={`${problem.id}-${topic}`}
+                        className="topic-tag"
+                      >
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
 
-              <div className="problem-actions">
-                <a
-                  href={problem.leetcodeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="leetcode-btn"
-                >
-                  <FiExternalLink />
-                  View on LeetCode
-                </a>
-              </div>
+                  <div className="problem-actions">
+                    <a
+                      href={problem.leetcodeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="action-btn problem-btn"
+                    >
+                      <FiExternalLink />
+                      Problem
+                    </a>
+                    {problem.solutionUrl && (
+                      <a
+                        href={problem.solutionUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="action-btn solution-btn"
+                      >
+                        <FiCode />
+                        Solution
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ))}
       </div>
 
-      {dailyProblems.length === 0 && (
+      {/* No Results */}
+      {filteredCompanies.length === 0 && searchQuery && (
+        <div className="no-results">
+          <FiSearch className="no-results-icon" />
+          <p>No companies found for "{searchQuery}"</p>
+          <p className="no-results-subtitle">Try a different search term</p>
+        </div>
+      )}
+
+      {/* Empty State */}
+      {totalProblems === 0 && (
         <div className="no-daily">
-          <FiCalendar className="no-daily-icon" />
-          <p>No daily challenges yet.</p>
+          <FiBriefcase className="no-daily-icon" />
+          <p>No company problems yet.</p>
           <p className="no-daily-subtitle">
-            Start solving daily challenges and track your progress here!
+            {/* Add company-specific problems to track your interview prep here! */}
           </p>
         </div>
       )}

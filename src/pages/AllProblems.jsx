@@ -1,14 +1,26 @@
 import "./AllProblems.css";
 
 import { FiBookmark, FiExternalLink, FiFilter, FiSearch } from "react-icons/fi";
-import React, { useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
 
-import { Link } from "react-router-dom";
 import problems from "../data/problems";
 
 function AllProblems() {
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
+
+  // Set difficulty from URL params on mount
+  useEffect(() => {
+    const difficultyParam = searchParams.get("difficulty");
+    if (
+      difficultyParam &&
+      ["Easy", "Medium", "Hard"].includes(difficultyParam)
+    ) {
+      setSelectedDifficulty(difficultyParam);
+    }
+  }, [searchParams]);
   const [selectedTopic, setSelectedTopic] = useState("All");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -17,10 +29,8 @@ function AllProblems() {
     return ["All", ...new Set(problems.flatMap((p) => p.topics))].sort();
   }, []);
 
-  // Get all unique categories
-  const allCategories = useMemo(() => {
-    return ["All", ...new Set(problems.map((p) => p.category))];
-  }, []);
+  // Fixed category options
+  const allCategories = ["All", "Practice", "Company", "Contest"];
 
   // Filter problems based on search and filters
   const filteredProblems = useMemo(() => {
