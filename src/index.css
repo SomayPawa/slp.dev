@@ -38,22 +38,22 @@
 }
 
 [data-theme="dark"] {
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #151b2e;
-  --bg-tertiary: #1f2937;
-  --bg-gradient-1: linear-gradient(135deg, #00d9ff 0%, #00ffc8 100%);
-  --bg-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --bg-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --bg-gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #cbd5e1;
-  --border-color: #2d3748;
-  --accent-primary: #00d9ff;
-  --accent-secondary: #00ffc8;
-  --accent-gradient: linear-gradient(135deg, #00d9ff 0%, #00ffc8 100%);
-  --primary: #00d9ff;
-  --accent: #00ffc8;
+  --bg-primary: #0f1419;
+  --bg-secondary: #1a2332;
+  --bg-tertiary: #243447;
+  --bg-gradient-1: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  --bg-gradient-2: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  --bg-gradient-3: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  --bg-gradient-4: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  --text-primary: #e8f0fe;
+  --text-secondary: #93c5fd;
+  --text-tertiary: #bfdbfe;
+  --border-color: #1e3a8a;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #60a5fa;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  --primary: #3b82f6;
+  --accent: #60a5fa;
   --success: #34d399;
   --warning: #fbbf24;
   --error: #f87171;
@@ -64,9 +64,9 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.7);
   --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.8);
-  --shadow-glow: 0 0 30px rgba(0, 217, 255, 0.4);
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.4);
+  --glass-bg: rgba(36, 52, 71, 0.7);
+  --glass-border: rgba(59, 130, 246, 0.2);
 }
 
 body {
@@ -120,6 +120,31 @@ pre {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* Container responsive padding */
+@media (max-width: 1400px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 /* Scrollbar styles */

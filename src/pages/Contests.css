@@ -335,6 +335,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex: 1;
 }
 
 .problem-number {
@@ -350,6 +351,10 @@
   margin: 0;
   line-height: 1.5;
   transition: color 0.3s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .contest-problem-card:hover .problem-title {

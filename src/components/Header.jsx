@@ -29,9 +29,7 @@ function Header({ theme, toggleTheme }) {
       <div className="container header-content">
         <Link to="/" className="logo">
           <FiCode className="logo-icon" />
-          <span className="logo-text">
-            LeetCode<span className="logo-accent">Solutions</span>
-          </span>
+          <span className="logo-text">LeetCode</span>
         </Link>
 
         <nav className="nav">
