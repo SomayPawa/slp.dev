@@ -20,16 +20,10 @@ function Blogs() {
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [copiedIndex, setCopiedIndex] = useState(null);
 
   // Get all unique difficulties
   const allDifficulties = ["All", "Easy", "Medium", "Hard"];
-
-  // Get all unique tags for display
-  const allTags = useMemo(() => {
-    const tags = new Set();
-    blogs.forEach((blog) => blog.tags.forEach((tag) => tags.add(tag)));
-    return Array.from(tags).sort();
-  }, []);
 
   // Filter blogs based on search and difficulty
   const filteredBlogs = useMemo(() => {
@@ -91,6 +85,17 @@ function Blogs() {
     });
   };
 
+  // Handle copy to clipboard
+  const handleCopyCode = async (code, blockId) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedIndex(blockId);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
   // Navigate between blogs
   const currentIndex = selectedBlog
     ? filteredBlogs.findIndex((b) => b.id === selectedBlog.id)
@@ -119,10 +124,6 @@ function Blogs() {
           <div className="stat-bubble">
             <span className="stat-number">{blogs.length}</span>
             <span className="stat-label">Articles</span>
-          </div>
-          <div className="stat-bubble">
-            <span className="stat-number">{allTags.length}</span>
-            <span className="stat-label">Topics</span>
           </div>
         </div>
       </div>
@@ -178,11 +179,12 @@ function Blogs() {
       {/* Blog Grid */}
       <div className="blogs-grid">
         {filteredBlogs.map((blog, index) => (
-          <article
+          <button
             key={blog.id}
             className="blog-card"
             onClick={() => setSelectedBlog(blog)}
             style={{ animationDelay: `${index * 0.05}s` }}
+            type="button"
           >
             <div className="card-header">
               <span
@@ -217,7 +219,7 @@ function Blogs() {
               </div>
               <span className="card-date">{formatDate(blog.date)}</span>
             </div>
-          </article>
+          </button>
         ))}
       </div>
 
@@ -257,17 +259,17 @@ function Blogs() {
             className="blog-reader-content"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
-            <button
-              className="reader-close"
-              onClick={() => setSelectedBlog(null)}
-              aria-label="Close"
-            >
-              <FiX size={24} />
-            </button>
-
             {/* Article Header */}
             <header className="reader-header">
+              {/* Close Button */}
+              <button
+                className="reader-close"
+                onClick={() => setSelectedBlog(null)}
+                aria-label="Close"
+              >
+                <FiX size={24} />
+              </button>
+
               <div className="reader-meta-top">
                 <span
                   className={`difficulty-label ${getDifficultyClass(selectedBlog.difficulty)}`}
@@ -322,23 +324,22 @@ function Blogs() {
                     codeContent = [];
                   } else if (line.trim() === "```" && inCodeBlock) {
                     inCodeBlock = false;
+                    const blockId = `${selectedBlog.id}-code-${elements.length}`;
+                    const codeText = codeContent.join("\n");
                     elements.push(
-                      <div key={`code-${index}`} className="code-block">
+                      <div key={blockId} className="code-block">
                         <div className="code-header">
                           <span className="code-language">{codeLanguage}</span>
                           <button
-                            className="copy-code-btn"
-                            onClick={() =>
-                              navigator.clipboard.writeText(
-                                codeContent.join("\n"),
-                              )
-                            }
+                            type="button"
+                            className={`copy-code-btn ${copiedIndex === blockId ? "copied" : ""}`}
+                            onClick={() => handleCopyCode(codeText, blockId)}
                           >
-                            Copy
+                            {copiedIndex === blockId ? "Copied!" : "Copy"}
                           </button>
                         </div>
                         <pre>
-                          <code>{codeContent.join("\n")}</code>
+                          <code>{codeText}</code>
                         </pre>
                       </div>,
                     );
@@ -402,30 +403,22 @@ function Blogs() {
 
             {/* Navigation */}
             <nav className="reader-navigation">
-              {prevBlog ? (
+              {prevBlog && (
                 <button
                   className="nav-btn prev"
                   onClick={() => setSelectedBlog(prevBlog)}
+                  title={prevBlog.title}
                 >
-                  <FiArrowLeft size={16} />
-                  <div className="nav-text">
-                    <span className="nav-label">Previous</span>
-                    <span className="nav-title">{prevBlog.title}</span>
-                  </div>
+                  <FiArrowLeft size={24} />
                 </button>
-              ) : (
-                <div />
               )}
               {nextBlog && (
                 <button
                   className="nav-btn next"
                   onClick={() => setSelectedBlog(nextBlog)}
+                  title={nextBlog.title}
                 >
-                  <div className="nav-text">
-                    <span className="nav-label">Next</span>
-                    <span className="nav-title">{nextBlog.title}</span>
-                  </div>
-                  <FiArrowRight size={16} />
+                  <FiArrowRight size={24} />
                 </button>
               )}
             </nav>
