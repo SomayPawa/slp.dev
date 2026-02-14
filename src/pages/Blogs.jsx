@@ -7,6 +7,7 @@ import {
   FiCalendar,
   FiClock,
   FiHash,
+  FiList,
   FiSearch,
   FiUser,
   FiX,
@@ -17,13 +18,46 @@ import blogs from "../data/blogs";
 
 function Blogs() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDifficulty, setSelectedDifficulty] = useState("All");
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [readingProgress, setReadingProgress] = useState(0);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [activeHeading, setActiveHeading] = useState(null);
+  const [manuallySelectedHeading, setManuallySelectedHeading] = useState(null);
+  const [showTOC, setShowTOC] = useState(true);
+
+  // Extract headings from blog content for Table of Contents
+  const extractHeadings = (content) => {
+    const lines = content.split("\n");
+    const headings = [];
+    lines.forEach((line, index) => {
+      if (line.startsWith("## ")) {
+        const text = line.replace(/^##\s/, "");
+        const id = `heading-${headings.length}`;
+        headings.push({ id, level: 2, text });
+      } else if (line.startsWith("### ")) {
+        const text = line.replace(/^###\s/, "");
+        const id = `heading-${headings.length}`;
+        headings.push({ id, level: 3, text });
+      } else if (
+        line.startsWith("# ") &&
+        !line.startsWith("## ") &&
+        !line.startsWith("### ")
+      ) {
+        const text = line.replace(/^#\s/, "");
+        const id = `heading-${headings.length}`;
+        headings.push({ id, level: 1, text });
+      }
+    });
+    return headings;
+  };
+
+  const tableOfContents = useMemo(() => {
+    return selectedBlog ? extractHeadings(selectedBlog.content) : [];
+  }, [selectedBlog]);
 
   // Get all unique difficulties
-  const allDifficulties = ["All", "Easy", "Medium", "Hard"];
+  const allDifficulties = ["Easy", "Medium", "Hard"];
 
   // Filter blogs based on search and difficulty
   const filteredBlogs = useMemo(() => {
@@ -37,15 +71,14 @@ function Blogs() {
           );
 
         const matchesDifficulty =
-          selectedDifficulty === "All" ||
-          blog.difficulty === selectedDifficulty;
+          selectedDifficulty === null || blog.difficulty === selectedDifficulty;
 
         return matchesSearch && matchesDifficulty;
       })
       .sort((a, b) => new Date(b.date) - new Date(a.date));
   }, [searchTerm, selectedDifficulty]);
 
-  // Handle reading progress
+  // Handle reading progress and active heading
   useEffect(() => {
     if (!selectedBlog) return;
 
@@ -55,6 +88,24 @@ function Blogs() {
       const scrollHeight = element.scrollHeight - element.clientHeight;
       const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
       setReadingProgress(progress);
+
+      // Update active heading
+      const headings = document.querySelectorAll("[data-heading-id]");
+      let currentActive = null;
+
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        const elementScroll = element.scrollTop || window.scrollY;
+        const headingTop = heading.offsetTop;
+
+        if (elementScroll >= headingTop - 100) {
+          currentActive = heading.getAttribute("data-heading-id");
+        }
+      });
+
+      if (currentActive) {
+        setActiveHeading(currentActive);
+      }
     };
 
     const modal = document.querySelector(".blog-reader-content");
@@ -167,12 +218,12 @@ function Blogs() {
       </div>
 
       {/* Results Info */}
-      {(searchTerm || selectedDifficulty !== "All") && (
+      {(searchTerm || selectedDifficulty !== null) && (
         <div className="search-results-info">
           Found {filteredBlogs.length} article
           {filteredBlogs.length !== 1 ? "s" : ""}
           {searchTerm && ` for "${searchTerm}"`}
-          {selectedDifficulty !== "All" && ` in ${selectedDifficulty}`}
+          {selectedDifficulty !== null && ` in ${selectedDifficulty}`}
         </div>
       )}
 
@@ -217,7 +268,6 @@ function Blogs() {
                 <FiUser size={12} />
                 <span>{blog.author}</span>
               </div>
-              <span className="card-date">{formatDate(blog.date)}</span>
             </div>
           </button>
         ))}
@@ -247,7 +297,10 @@ function Blogs() {
       {selectedBlog && (
         <div
           className="blog-reader-overlay"
-          onClick={() => setSelectedBlog(null)}
+          onClick={() => {
+            setSelectedBlog(null);
+            setManuallySelectedHeading(null);
+          }}
         >
           {/* Reading Progress Bar */}
           <div
@@ -308,6 +361,53 @@ function Blogs() {
               </div>
             </header>
 
+            {/* Table of Contents */}
+            {tableOfContents.length > 0 && (
+              <div className="reader-toc-wrapper">
+                <button
+                  className="toc-toggle"
+                  onClick={() => setShowTOC(!showTOC)}
+                  title={showTOC ? "Hide TOC" : "Show TOC"}
+                >
+                  <FiList size={18} />
+                  <span>Table of Contents</span>
+                </button>
+                {showTOC && (
+                  <nav className="reader-toc">
+                    <div className="toc-label">Jump to section</div>
+                    <ul className="toc-list">
+                      {tableOfContents.map((heading) => (
+                        <li
+                          key={heading.id}
+                          className={`toc-item toc-level-${heading.level} ${
+                            manuallySelectedHeading === heading.id
+                              ? "active"
+                              : ""
+                          }`}
+                        >
+                          <a
+                            href={`#${heading.id}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              const element = document.querySelector(
+                                `[data-heading-id="${heading.id}"]`,
+                              );
+                              if (element) {
+                                element.scrollIntoView({ behavior: "smooth" });
+                                setManuallySelectedHeading(heading.id);
+                              }
+                            }}
+                          >
+                            {heading.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                )}
+              </div>
+            )}
+
             {/* Article Content */}
             <article className="reader-article">
               {(() => {
@@ -316,6 +416,7 @@ function Blogs() {
                 let inCodeBlock = false;
                 let codeContent = [];
                 let codeLanguage = "";
+                let headingCounter = 0;
 
                 lines.forEach((line, index) => {
                   if (line.trim().startsWith("```") && !inCodeBlock) {
@@ -347,20 +448,35 @@ function Blogs() {
                   } else if (inCodeBlock) {
                     codeContent.push(line);
                   } else if (line.startsWith("###")) {
+                    const headingId = `heading-${headingCounter++}`;
                     elements.push(
-                      <h4 key={index} className="article-h4">
+                      <h4
+                        key={index}
+                        className="article-h4"
+                        data-heading-id={headingId}
+                      >
                         {line.replace(/^###\s/, "")}
                       </h4>,
                     );
                   } else if (line.startsWith("##")) {
+                    const headingId = `heading-${headingCounter++}`;
                     elements.push(
-                      <h3 key={index} className="article-h3">
+                      <h3
+                        key={index}
+                        className="article-h3"
+                        data-heading-id={headingId}
+                      >
                         {line.replace(/^##\s/, "")}
                       </h3>,
                     );
                   } else if (line.startsWith("#")) {
+                    const headingId = `heading-${headingCounter++}`;
                     elements.push(
-                      <h2 key={index} className="article-h2">
+                      <h2
+                        key={index}
+                        className="article-h2"
+                        data-heading-id={headingId}
+                      >
                         {line.replace(/^#\s/, "")}
                       </h2>,
                     );

@@ -9,8 +9,8 @@ import Contests from "./pages/Contests";
 import DailyChallenge from "./pages/DailyChallenge";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
+import LearningRoadmap from "./components/LearningRoadmap";
 import ProblemDetail from "./pages/ProblemDetail";
-import QuickAddProblem from "./components/QuickAddProblem";
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -40,7 +40,7 @@ function App() {
             <Route path="/blogs" element={<Blogs />} />
           </Routes>
         </main>
-        <QuickAddProblem />
+        <LearningRoadmap />
       </div>
     </Router>
   );

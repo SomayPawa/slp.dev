@@ -13,8 +13,8 @@ const blogs = [
 ## What is DP?
 
 DP is a technique for solving problems with:
-- **Overlapping Subproblems**: Same calculations repeat
-- **Optimal Substructure**: Build answer from smaller solutions
+- Overlapping Subproblems**: Same calculations repeat
+- Optimal Substructure**: Build answer from smaller solutions
 
 ## Two Approaches
 
@@ -41,11 +41,11 @@ int fib(int n) {
 
 ## 5 Steps to Solve Any DP Problem
 
-1. **Identify**: Look for "count ways", "min/max", or choices affecting future
-2. **Define State**: What info do you need? (index, capacity, count, etc.)
-3. **Recurrence**: Express answer using smaller subproblems
-4. **Base Case**: Handle the smallest cases directly
-5. **Optimize**: Add memoization or convert to tabulation
+1. Identify**: Look for "count ways", "min/max", or choices affecting future
+2. Define State**: What info do you need? (index, capacity, count, etc.)
+3. Recurrence**: Express answer using smaller subproblems
+4. Base Case**: Handle the smallest cases directly
+5. Optimize**: Add memoization or convert to tabulation
 
 ## Common Patterns
 
@@ -58,9 +58,9 @@ int fib(int n) {
 
 ## Must-Solve Problems
 
-**Start Here**: Fibonacci → Climbing Stairs → House Robber → Coin Change
+Start Here: Fibonacci → Climbing Stairs → House Robber → Coin Change
 
-**Then**: LIS → LCS → Knapsack → Edit Distance → Unique Paths
+Then: LIS → LCS → Knapsack → Edit Distance → Unique Paths
 
 ## Quick Tips
 
@@ -76,6 +76,7 @@ Happy Coding!
     author: "SomayCoder880",
     date: "2026-02-10",
     readTime: 5,
+    likes: 0,
   },
   {
     id: 2,
@@ -131,8 +132,8 @@ public:
 \`\`\`
 
 ## Complexity
-- **Time**: O(n × m × k)
-- **Space**: O(n × m × k)
+- Time: O(n × m × k)
+- Space: O(n × m × k)
 
 ## Key Points
 - Pruning check prevents TLE
@@ -145,6 +146,7 @@ public:
     date: "2026-02-09",
     readTime: 5,
     leetcodeNumber: 3836,
+    likes: 0,
   },
 ];
 
