@@ -191,7 +191,7 @@ function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="stats-grid premium">
+      {/* <div className="stats-grid premium">
         {stats.map((stat, index) => (
           <Link
             key={stat.label}
@@ -215,10 +215,10 @@ function Dashboard() {
             </div>
           </Link>
         ))}
-      </div>
+      </div> */}
 
       {/* Circular Progress Charts */}
-      <div className="progress-section premium">
+      {/* <div className="progress-section premium">
         <h2 className="section-title premium">
           <FiTrendingUp />
           Difficulty Distribution
@@ -377,12 +377,12 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Two Column Layout */}
-      <div className="dashboard-grid premium">
+      {/* <div className="dashboard-grid premium">
         {/* Recent Problems */}
-        <div className="dashboard-card premium recent-solutions-card">
+      {/* <div className="dashboard-card premium recent-solutions-card">
           <div className="card-header premium">
             <h2 className="section-title premium">
               <FiCode className="section-icon" />
@@ -434,11 +434,11 @@ function Dashboard() {
               </Link>
             ))}
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div>  */}
 
       {/* Activity Summary */}
-      <div className="activity-summary">
+      {/* <div className="activity-summary">
         <Link to="/contests" className="activity-item activity-link">
           <FiTarget className="activity-icon" />
           <div className="activity-content">
@@ -460,7 +460,7 @@ function Dashboard() {
             <div className="activity-label">Unique Topics</div>
           </div>
         </Link>
-      </div>
+      </div> */}
 
       {/* Social Links Section */}
       <div className="social-links-section">
