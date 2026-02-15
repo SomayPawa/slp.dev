@@ -179,6 +179,58 @@ function Blogs() {
         </div>
       </div>
 
+      {/* Featured Article Section */}
+      {blogs.find((b) => b.featured) && (
+        <div className="featured-article-section">
+          {(() => {
+            const featuredBlog = blogs.find((b) => b.featured);
+            return (
+              <button
+                className="featured-article-card"
+                onClick={() => setSelectedBlog(featuredBlog)}
+                type="button"
+              >
+                <div className="featured-badge">
+                  <span className="badge-star">⭐</span>
+                </div>
+                <div className="featured-content">
+                  <div className="featured-header">
+                    <h2 className="featured-title">{featuredBlog.title}</h2>
+                    <span className="featured-new-badge">NEW</span>
+                  </div>
+                  <p className="featured-excerpt">{featuredBlog.excerpt}</p>
+                  <div className="featured-meta">
+                    <span className="featured-read-time">
+                      <FiClock size={14} />
+                      {featuredBlog.readTime} min read
+                    </span>
+                    <span className="featured-author">
+                      <FiUser size={14} />
+                      {featuredBlog.author}
+                    </span>
+                    <span className="featured-date">
+                      <FiCalendar size={14} />
+                      {formatDate(featuredBlog.date)}
+                    </span>
+                  </div>
+                  <div className="featured-tags">
+                    {featuredBlog.tags.map((tag) => (
+                      <span key={tag} className="featured-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="featured-cta">
+                    <span className="cta-text">Read Article</span>
+                    <FiArrowRight size={16} />
+                  </div>
+                </div>
+              </button>
+            );
+          })()}
+        </div>
+      )}
+
       {/* Search Bar */}
       <div className="blogs-search-section">
         <div className="search-wrapper">
@@ -232,17 +284,22 @@ function Blogs() {
         {filteredBlogs.map((blog, index) => (
           <button
             key={blog.id}
-            className="blog-card"
+            className={`blog-card ${blog.featured ? "featured" : ""}`}
             onClick={() => setSelectedBlog(blog)}
             style={{ animationDelay: `${index * 0.05}s` }}
             type="button"
           >
             <div className="card-header">
-              <span
-                className={`difficulty-chip ${getDifficultyClass(blog.difficulty)}`}
-              >
-                {blog.difficulty}
-              </span>
+              <div className="card-badges">
+                <span
+                  className={`difficulty-chip ${getDifficultyClass(blog.difficulty)}`}
+                >
+                  {blog.difficulty}
+                </span>
+                {blog.featured && (
+                  <span className="featured-chip">⭐ Featured</span>
+                )}
+              </div>
               <span className="card-read-time">
                 <FiClock size={12} />
                 {blog.readTime} min
@@ -285,7 +342,7 @@ function Blogs() {
             className="reset-filters-btn"
             onClick={() => {
               setSearchTerm("");
-              setSelectedDifficulty("All");
+              setSelectedDifficulty(null);
             }}
           >
             Reset Filters

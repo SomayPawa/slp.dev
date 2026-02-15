@@ -2,6 +2,8 @@ import "./Dashboard.css";
 
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 import {
+  FiArrowRight,
+  FiBookOpen,
   FiCheckCircle,
   FiCode,
   FiStar,
@@ -13,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import React from "react";
 import { SiLeetcode } from "react-icons/si";
+import blogs from "../data/blogs";
 import problems from "../data/problems";
 
 function Dashboard() {
@@ -102,19 +105,61 @@ function Dashboard() {
 
   return (
     <div className="container dashboard">
-      {/* Hero Section */}
-      <div className="dashboard-hero">
-        <div className="hero-content">
-          <div className="hero-badge">
-            <FiStar className="badge-icon" />
-            Welcome to My Journey
+      {/* Featured Blog Section - TOP PRIORITY */}
+      {blogs.find((b) => b.featured) && (
+        <div className="featured-blog-section premium">
+          <div className="featured-blog-content">
+            <div className="featured-blog-header">
+              <div className="featured-blog-badge">
+                <FiStar size={16} />
+                <span>Latest Article</span>
+              </div>
+            </div>
+            <h2 className="featured-blog-title">
+              {blogs.find((b) => b.featured).title}
+            </h2>
+            <p className="featured-blog-excerpt">
+              {blogs.find((b) => b.featured).excerpt}
+            </p>
+            <div className="featured-blog-meta-info">
+              <span className="meta-item">
+                <FiBookOpen size={14} />
+                {blogs.find((b) => b.featured).readTime} min read
+              </span>
+              <span className="meta-item">
+                <FiStar size={14} />
+                {blogs.find((b) => b.featured).difficulty}
+              </span>
+            </div>
+            <Link to="/blogs" className="featured-blog-cta premium">
+              <span>Explore Full Article</span>
+              <FiArrowRight size={20} />
+            </Link>
           </div>
-          <h1 className="page-title">
+          <div className="featured-blog-decoration premium">
+            <div className="deco-orb orb-1"></div>
+            <div className="deco-orb orb-2"></div>
+            <div className="deco-light-ray"></div>
+          </div>
+        </div>
+      )}
+
+      {/* Hero Section */}
+      <div className="dashboard-hero premium">
+        <div className="hero-content premium">
+          <div className="hero-badge premium">
+            <FiStar className="badge-icon" />
+            Welcome to My Tech Journey
+          </div>
+          <h1 className="page-title premium">
             <FiCode className="title-icon" />
-            LeetCode Dashboard
+            LeetCode Mastery Dashboard
           </h1>
-          <p className="page-subtitle"></p>
-          <div className="hero-stats-quick">
+          <p className="page-subtitle premium">
+            Tracking my progress through challenging algorithms & system design
+            problems
+          </p>
+          <div className="hero-stats-quick premium">
             <div className="quick-stat">
               <span className="quick-stat-value">{totalProblems}</span>
               <span className="quick-stat-label">Problems Solved</span>
@@ -131,43 +176,54 @@ function Dashboard() {
               </span>
               <span className="quick-stat-label">Success Rate</span>
             </div>
+            <div className="quick-stat">
+              <span className="quick-stat-value">{allTopics.length}</span>
+              <span className="quick-stat-label">Topics Covered</span>
+            </div>
           </div>
         </div>
-        <div className="hero-decoration">
+        <div className="hero-decoration premium">
           <div className="decoration-circle circle-1"></div>
           <div className="decoration-circle circle-2"></div>
           <div className="decoration-circle circle-3"></div>
+          <div className="background-glow"></div>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="stats-grid">
+      <div className="stats-grid premium">
         {stats.map((stat, index) => (
           <Link
             key={stat.label}
             to={stat.link}
-            className="stat-card"
+            className="stat-card premium"
             style={{
-              borderLeft: `4px solid ${stat.color}`,
               background: stat.bgColor,
               textDecoration: "none",
             }}
           >
-            <div className="stat-icon" style={{ color: stat.color }}>
+            <div
+              className="stat-card-glow"
+              style={{ background: stat.color }}
+            ></div>
+            <div className="stat-icon premium" style={{ color: stat.color }}>
               {stat.icon}
             </div>
-            <div className="stat-content">
-              <div className="stat-value">{stat.value}</div>
-              <div className="stat-label">{stat.label}</div>
+            <div className="stat-content premium">
+              <div className="stat-value premium">{stat.value}</div>
+              <div className="stat-label premium">{stat.label}</div>
             </div>
           </Link>
         ))}
       </div>
 
       {/* Circular Progress Charts */}
-      <div className="progress-section">
-        <h2 className="section-title">Difficulty Distribution</h2>
-        <div className="circular-progress-grid">
+      <div className="progress-section premium">
+        <h2 className="section-title premium">
+          <FiTrendingUp />
+          Difficulty Distribution
+        </h2>
+        <div className="circular-progress-grid premium">
           <div className="circular-progress-item">
             <svg className="circular-chart" viewBox="0 0 36 36">
               <path
@@ -324,43 +380,51 @@ function Dashboard() {
       </div>
 
       {/* Two Column Layout */}
-      <div className="dashboard-grid">
+      <div className="dashboard-grid premium">
         {/* Recent Problems */}
-        <div className="dashboard-card recent-solutions-card">
-          <h2 className="section-title">
-            <FiCode className="section-icon" />
-            Recent Solutions
-          </h2>
-          <div className="recent-problems-grid">
-            {recentProblems.map((problem) => (
+        <div className="dashboard-card premium recent-solutions-card">
+          <div className="card-header premium">
+            <h2 className="section-title premium">
+              <FiCode className="section-icon" />
+              Recent Solutions
+            </h2>
+            <Link to="/problems" className="view-all-link">
+              View All →
+            </Link>
+          </div>
+          <div className="recent-problems-grid premium">
+            {recentProblems.map((problem, idx) => (
               <Link
                 key={problem.id}
                 to={`/problem/${problem.id}`}
-                className="solution-card"
+                className="solution-card premium"
+                style={{ animationDelay: `${idx * 0.05}s` }}
               >
-                <div className="solution-header">
-                  <span className="solution-number">#{problem.number}</span>
+                <div className="solution-header premium">
+                  <span className="solution-number premium">
+                    #{problem.number}
+                  </span>
                   <span
-                    className={`solution-difficulty ${problem.difficulty.toLowerCase()}`}
+                    className={`solution-difficulty premium ${problem.difficulty.toLowerCase()}`}
                   >
                     {problem.difficulty}
                   </span>
                 </div>
-                <h3 className="solution-title">{problem.title}</h3>
-                <div className="solution-footer">
-                  <div className="solution-topics">
+                <h3 className="solution-title premium">{problem.title}</h3>
+                <div className="solution-footer premium">
+                  <div className="solution-topics premium">
                     {problem.topics.slice(0, 2).map((topic, idx) => (
-                      <span key={idx} className="topic-tag">
+                      <span key={idx} className="topic-tag premium">
                         {topic}
                       </span>
                     ))}
                     {problem.topics.length > 2 && (
-                      <span className="topic-more">
+                      <span className="topic-more premium">
                         +{problem.topics.length - 2}
                       </span>
                     )}
                   </div>
-                  <span className="solution-date">
+                  <span className="solution-date premium">
                     {new Date(problem.date).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
@@ -368,19 +432,6 @@ function Dashboard() {
                   </span>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Top Topics */}
-        <div className="dashboard-card">
-          <h2 className="section-title">Top Topics</h2>
-          <div className="topics-grid">
-            {topicCounts.map((item, index) => (
-              <div key={index} className="topic-item">
-                <span className="topic-name">{item.topic}</span>
-                <span className="topic-count">{item.count}</span>
-              </div>
             ))}
           </div>
         </div>

@@ -19,8 +19,8 @@ function Header({ theme, toggleTheme }) {
   const navItems = [
     { path: "/", label: "Dashboard", icon: <FiTrendingUp /> },
     { path: "/problems", label: "All Problems", icon: <FiCode /> },
-    { path: "/contests", label: "Contests", icon: <FiAward /> },
-    { path: "/daily", label: "Company Problems", icon: <FiCalendar /> },
+    // { path: "/contests", label: "Contests", icon: <FiAward /> },
+    // { path: "/daily", label: "Company Problems", icon: <FiCalendar /> },
     { path: "/blogs", label: "Blogs", icon: <FiBookOpen /> },
   ];
 

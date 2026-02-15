@@ -2,151 +2,170 @@
 
 const blogs = [
   {
-    id: 1,
-    title: "Dynamic Programming: Quick Start Guide",
-    slug: "dp-quick-start-guide",
+    id: 3,
+    title: "Building a URL Shortener with Spring Boot and Base62",
+    slug: "spring-boot-url-shortener-base62",
     excerpt:
-      "Learn the core concepts of DP - when to use it, how to approach problems, and key patterns to recognize.",
-    content: `
-# Dynamic Programming: Quick Start Guide
-
-## What is DP?
-
-DP is a technique for solving problems with:
-- Overlapping Subproblems**: Same calculations repeat
-- Optimal Substructure**: Build answer from smaller solutions
-
-## Two Approaches
-
-### Memoization (Top-Down)
-\`\`\`cpp
-int fib(int n, vector<int>& dp) {
-    if (n <= 1) return n;
-    if (dp[n] != -1) return dp[n];
-    return dp[n] = fib(n-1, dp) + fib(n-2, dp);
-}
-\`\`\`
-
-### Tabulation (Bottom-Up)
-\`\`\`cpp
-int fib(int n) {
-    if (n <= 1) return n;
-    vector<int> dp(n + 1);
-    dp[0] = 0; dp[1] = 1;
-    for (int i = 2; i <= n; i++)
-        dp[i] = dp[i-1] + dp[i-2];
-    return dp[n];
-}
-\`\`\`
-
-## 5 Steps to Solve Any DP Problem
-
-1. Identify**: Look for "count ways", "min/max", or choices affecting future
-2. Define State**: What info do you need? (index, capacity, count, etc.)
-3. Recurrence**: Express answer using smaller subproblems
-4. Base Case**: Handle the smallest cases directly
-5. Optimize**: Add memoization or convert to tabulation
-
-## Common Patterns
-
-| Pattern | Example Problems |
-|---------|-----------------|
-| Linear DP | Climbing Stairs, House Robber |
-| 0/1 Decision | Knapsack, Subset Sum |
-| Two Sequence | LCS, Edit Distance |
-| Interval DP | Burst Balloons, Matrix Chain |
-
-## Must-Solve Problems
-
-Start Here: Fibonacci → Climbing Stairs → House Robber → Coin Change
-
-Then: LIS → LCS → Knapsack → Edit Distance → Unique Paths
-
-## Quick Tips
-
-- Start with recursion, then add memoization
-- Draw the recursion tree to see overlaps
-- Use \`long long\` to avoid overflow
-- Check base cases carefully
-
-Happy Coding!
-    `,
+      "In this era of social media and character limits, long, bulky URLs are a nightmare. Whether it’s a deep link to a photo that Google or other platforms struggle to process, or just a messy tracking link, we need a way to make them cleaner.",
+    featured: true,
     difficulty: "Medium",
-    tags: ["Dynamic Programming", "Algorithms", "Tutorial"],
+    tags: [
+      "Spring Boot",
+      "Java",
+      "System Design",
+      "Base62 Encoding",
+      "Backend",
+    ],
     author: "SomayCoder880",
-    date: "2026-02-10",
-    readTime: 5,
+    date: "2026-02-15",
+    readTime: 10,
     likes: 0,
-  },
-  {
-    id: 2,
-    title: "LeetCode 3836: Maximum Score Using K Pairs",
-    slug: "maximum-score-k-pairs-3d-dp",
-    excerpt:
-      "3D DP solution for selecting exactly k pairs from two arrays to maximize sum of products.",
     content: `
-# LeetCode 3836: Maximum Score Using K Pairs
+# Building a URL Shortener with Spring Boot and Base62
 
-## Problem
-Select exactly \`k\` pairs from \`nums1\` and \`nums2\` maintaining relative order. Maximize sum of products.
+## What is a URL Shortener?
 
-## Approach
-Use 3D DP: \`solve(i, j, cnt)\` where i, j are indices and cnt is pairs selected.
+The URL shortener is a service that takes a long URL Example of leetcode website (https://www.google.com/search?q=linkedin&sca_esv=9459100d7edd2511&sxsrf=ANbL-n7WJoW9Wq9jZt7H29qYZJ39C8SaHg%3A1771073639566) and turns it into a much shorter version Example (https://somay/Dfgb12Ak). When a user hits the short URL, the system identifies the unique code and redirects them back to the original destination.
 
-**Choices at each state:**
-- Take pair: \`nums1[i] * nums2[j] + solve(i+1, j+1, cnt+1)\`
-- Skip nums1[i]: \`solve(i+1, j, cnt)\`
-- Skip nums2[j]: \`solve(i, j+1, cnt)\`
+## Why do we need one?
 
-## Solution
+1. Space Management: Large URLs for photos or cloud storage often exceed text limits
+2. Aesthetics: Short URLs look cleaner in LinkedIn posts or emails
+3. Tracking: It's easier to count clicks and analyze traffic on a shortened link
+4. Compatibility: Some platforms have trouble rendering extremely long URLs with complex query parameters
 
-\`\`\`cpp
-class Solution {
-public:
-    const long long NEG_INF = -1e18;
-    
-    long long solve(int i, int j, int cnt, vector<int>& nums1, 
-                    vector<int>& nums2, int& k, 
-                    vector<vector<vector<long long>>>& dp, 
-                    int& n, int& m) {
-        if (cnt == k) return 0;
-        if (i >= n || j >= m) return NEG_INF;
-        if (n - i < k - cnt || m - j < k - cnt) return NEG_INF;
-        if (dp[i][j][cnt] != NEG_INF) return dp[i][j][cnt];
-        
-        long long take = 1LL * nums1[i] * nums2[j] + 
-                         solve(i+1, j+1, cnt+1, nums1, nums2, k, dp, n, m);
-        long long skip1 = solve(i+1, j, cnt, nums1, nums2, k, dp, n, m);
-        long long skip2 = solve(i, j+1, cnt, nums1, nums2, k, dp, n, m);
-        
-        return dp[i][j][cnt] = max(take, max(skip1, skip2));
+## The Logic: Base62 Encoding
+
+To create a unique short code, we use the Base62 Algorithm.
+Why Base62? It uses a combination of:
+- \`0-9\` (10 characters)
+- \`a-z\` (26 characters)
+- \`A-Z\` (26 characters)
+
+Total = 62 characters
+By converting a Database ID (Long) into a Base62 string, we can represent billions of URLs using only 5 or 6 characters.
+
+## Step-by-Step Implementation
+
+1. User Request: The user sends a long URL via a POST request
+2. Database Storage: We save the URL in the database to generate a unique auto-incrementing ID
+3. Encoding: We take that ID and pass it through our Base62Encoder
+4. Final Save: We update the record with the generated shortCode
+5. Response: The user receives the shortened URL
+
+## The Core Components (Code)
+
+The Algorithm: Base62Encoder
+
+This component is responsible for turning our database numeric IDs into short, alphanumeric strings.
+
+\`\`\`java
+package com.example.url.project.util;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Base62Encoder {
+    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private final Long BASE = 62L;
+
+    public String ShortCodeById(Long id) {
+        if (id == 0) return String.valueOf(ALPHABET.charAt(0));
+
+        StringBuilder sb = new StringBuilder();
+        while (id > 0) {
+            int pos = (int) (id % BASE);
+            sb.append(ALPHABET.charAt(pos));
+            id = id / BASE;
+        }
+        return sb.reverse().toString();
     }
-    
-    long long maxScore(vector<int>& nums1, vector<int>& nums2, int k) {
-        int n = nums1.size(), m = nums2.size();
-        vector<vector<vector<long long>>> dp(
-            n + 1, vector<vector<long long>>(m + 1, vector<long long>(k + 1, NEG_INF)));
-        return solve(0, 0, 0, nums1, nums2, k, dp, n, m);
-    }
-};
+}
 \`\`\`
 
-## Complexity
-- Time: O(n × m × k)
-- Space: O(n × m × k)
+The Service Layer: Managing the Flow
 
-## Key Points
-- Pruning check prevents TLE
-- Use \`1LL *\` to avoid overflow
-- 3D state: position in both arrays + count
+This is where the business logic lives. We check if the URL already exists; if not, we save it and encode it.
+
+\`\`\`java
+@Service
+public class UrlServiceImp implements UrlService {
+    private static final String BASE_URL = "https://somay/";
+    private final UrlRepository urlRepository;
+    private final Base62Encoder base62Encoder;
+
+    public UrlServiceImp(UrlRepository urlRepository, Base62Encoder base62Encoder) {
+        this.urlRepository = urlRepository;
+        this.base62Encoder = base62Encoder;
+    }
+
+    @Override
+    public UrlResponse shortenUrl(UrlRequest request) {
+        // Check if URL exists to avoid duplicates
+        return urlRepository.findByOriginalUrl(request.getOriginalUrl())
+                .map(this::buildResponse)
+                .orElseGet(() -> {
+                    Url url = new Url();
+                    url.setOriginalUrl(request.getOriginalUrl());
+                    url.setCreatedAt(LocalDateTime.now());
+                    url.setClickCount(0L);
+                    
+                    Url savedUrl = urlRepository.save(url);
+                    String shortCode = base62Encoder.ShortCodeById(savedUrl.getId());
+                    savedUrl.setShortCode(shortCode);
+                    urlRepository.save(savedUrl);
+                    
+                    return buildResponse(savedUrl);
+                });
+    }
+
+    @Override
+    public String getOriginalUrl(String shortCode) {
+        Url url = urlRepository.findByShortCode(shortCode)
+                .orElseThrow(() -> new RuntimeException("Short URL not found"));
+
+        url.setClickCount(url.getClickCount() + 1);
+        urlRepository.save(url);
+        return url.getOriginalUrl();
+    }
+}
+\`\`\`
+
+The Input and Output (DTOs)
+
+When you call the API with a JSON body, here is what the request and response look like:
+
+Request:
+\`\`\`json
+{
+   "originalUrl": "https://leetcode.com/problemset/"
+}
+\`\`\`
+
+Response:
+\`\`\`json
+{
+    "shortUrl": "https://somay/D",
+    "shortCode": "D",
+    "originalUrl": "https://leetcode.com/problemset/"
+}
+\`\`\`
+
+
+## Future Enhancements
+
+This is just the beginning! To make this production-ready for millions of users, consider implementing:
+
+1. Redis Caching: To avoid hitting the database every time a popular link is clicked.
+
+2. Kafka Event Streaming: For event streaming to handle analytics (like click tracking) asynchronously.
+
+3. Thread Pooling: To optimize the server's ability to handle concurrent requests without crashing.
+
+Stay tuned for Part 2 where we integrate Redis and Kafka!
+
+Happy Coding! 
     `,
-    difficulty: "Hard",
-    tags: ["Dynamic Programming", "Memoization", "3D DP"],
-    author: "SomayCoder880",
-    date: "2026-02-09",
-    readTime: 5,
-    leetcodeNumber: 3836,
-    likes: 0,
   },
 ];
 
