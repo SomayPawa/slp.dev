@@ -378,7 +378,6 @@ vs Brute Force : 10^9 operations → 2000 operations = 500,000x faster!
 Can Handle : Instantly solve for n = 10^18 (brute force: millions of years)
 Your CPU's Reaction : "Is that all?" (Actually happy!)
 
----
 
 ## Key Insights to Remember 
 
