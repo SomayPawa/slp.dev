@@ -414,7 +414,6 @@ For digit sums:
 - Change \`newsum++\` to \`newsum += i\`
 - Same DP structure! (One algorithm to rule them all! )
 
----
 
 ##  Final Thoughts (The Moral of the Story)
 
@@ -436,17 +435,14 @@ The pattern is reusable:
 
 Once you understand "tight," Digit DP clicks. And when it clicks, you'll solve problems that seem impossible to mere mortals!
 
----
-
 ### Ready to Practice? (The Challenge Awaits!)
 
 Now that you understand the core pattern through this example, you're ready to tackle:
 - LeetCode 233 (Digit 1s) - Start here!
-- LeetCode 902 (Numbers At Most N Given Digit Set) - Getting spicy!
-- LeetCode 1012 (Numbers With Repeated Digits) - Now we're talking!
-- LeetCode 1397 (Find All Good Strings) - Godmode unlocked!
+- LeetCode 2376 (Count Special Integers) - Getting spicy!
+- LeetCode 3869 (Count Fancy Numbers in a Range) - Godmode unlocked!
 
-**Pro Tip:** Start with the code, trace through examples until your brain hurts, and let the pattern sink in. The eureka moment is coming! 💡
+Pro Tip: Start with the code, trace through examples until your brain hurts, and let the pattern sink in. The eureka moment is coming! 
 
 \`\`\`
 "Digit DP: Where exponential meets polynomial.
