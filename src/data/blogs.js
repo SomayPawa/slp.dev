@@ -230,17 +230,15 @@ The Problem:
 
 Why it fails:
 - We're iterating through EVERY. SINGLE. NUMBER. (Talk about overkill!)
-- We're checking EVERY digit in EVERY number (Even the boring numbers!)
+- We're checking EVERY digit in EVERY number
 - Complexity: O(n * log n) = O(10^9 * 10) ≈ 10^10 operations
 - Time to submit: Forever (Or until your online judge gives up)
 
 ##  The Digit DP Insight (Plot Twist! )
 
-What if I told you... instead of checking every number, we could build valid numbers and count as we go? 
+What if I told you... instead of checking every number, we could build valid numbers and count as we go?  
 
-Mind blown? 
-
-Key Idea: Process only the digits of n (≈10 digits for 10^9), not every number!
+### Key Idea: Process only the digits of n (≈10 digits for 10^9), not every number!
 
 It's like this:
 - Brute Force: "Hi, let me check all 1 billion numbers for you!" 
@@ -249,7 +247,7 @@ It's like this:
 New Approach:
 - Extract digits: 824883294 → [8, 2, 4, 8, 8, 3, 2, 9, 4]
 - Recursively decide: "What digit should I place at each position?"
-- Track: "Am I still bounded by n, or am I free to party?" 
+- Track: "Am I still bounded by n, or am I free to use all numbers?" 
 - Memoize: "Oh wait, I've seen this before!" (Time to reuse!)
 
 Complexity: O(digits * 2 * (digit_range)) = O(10 * 2 * 10) ≈ O(200)
@@ -270,7 +268,7 @@ dp[ind][tight][sum]
 \`\`\`
 
 - ind: Current digit position we're deciding (0 = leftmost)
-- tight: Are we still bounded by n? (1 = yes, 0 = nope, I'm free!)
+- tight: Are we still bounded by n? (1 = yes, 0 = nope)
 - sum: How many 1s have we counted so far?
 
 Why These Three?
@@ -291,7 +289,6 @@ tight = 0 (FREE - Break out of jail!):
 - We've already gone below n
 - At position i, we can pick ANY digit 0 to 9 (YOLO!)
 - Example: If we picked 0 at position 0 of n=13, at position 1 we can go wild!
-- You're at college now. Live your best life! 
 
 Why This Matters:
 - Without tight, we'd need to track the actual number we're building (10^9 possibilities)
@@ -342,7 +339,7 @@ Imagine without tight tracking:
 - Without tight, you'd have to magically track the entire number! 
 
 With tight:
-- tight=1: You picked 1 (matched the bound)→ Still restricted (no fun for you)
+- tight=1: You picked 1 (matched the bound) → Still restricted (no fun for you)
 - tight=0: You picked 0 (went below) → Everything is free! (PARTY MODE!)
 - One bit of binary information solves the problem!
 
@@ -357,7 +354,6 @@ With DP (The dream):
 - tight: 0 or 1 (2 values)
 - sum: 0 to 10 (11 values, max 10 ones in 10 digits)
 - Total unique states: 11 * 2 * 11 = 242 (Polynomial! )
-- Your CPU: "That's it? I could do this in my sleep!" 
 
 ### Memoization Saves the Day (The unsung hero )
 
@@ -459,31 +455,7 @@ Now that you understand the core pattern through this example, you're ready to t
  Understanding tight is understanding the magic." 
 \`\`\`
 
-Now go forth and count those digits like a BOSS!
-- Use tight to track if we're bounded
-- Memoize to avoid recomputation
-
-The pattern is reusable:
-- Digit 1s, digit sums, divisibility, palindromes—same structure!
-
 Once you understand "tight," Digit DP clicks. And when it clicks, you'll solve problems that seem impossible!
-
----
-
-### Ready to Practice?
-
-Now that you understand the core pattern through this example, you're ready to tackle:
-- LeetCode 233 (Digit 1s)
-- LeetCode 902 (Numbers At Most N Given Digit Set)
-- LeetCode 1012 (Numbers With Repeated Digits)
-- LeetCode 1397 (Find All Good Strings)
-
-Start with the code, trace through examples, and let the pattern sink in. Happy coding!
-
-\`\`\`
-"Digit DP: Where exponential meets polynomial.
- Understanding tight is understanding the magic." 
-\`\`\`
 `,
   },
 ];
