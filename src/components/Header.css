@@ -208,6 +208,12 @@
   z-index: 1;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .nav {

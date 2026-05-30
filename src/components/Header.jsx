@@ -11,6 +11,7 @@ import {
 } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 
+import Feedback from "./Feedback";
 import React from "react";
 
 function Header({ theme, toggleTheme }) {
@@ -45,13 +46,16 @@ function Header({ theme, toggleTheme }) {
           ))}
         </nav>
 
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? <FiMoon /> : <FiSun />}
-        </button>
+        <div className="header-actions">
+          <Feedback />
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? <FiMoon /> : <FiSun />}
+          </button>
+        </div>
       </div>
     </header>
   );
