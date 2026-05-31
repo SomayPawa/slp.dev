@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import {
-  FiX,
-  FiMessageSquare,
-  FiLoader,
-  FiCheck,
-  FiAlertCircle,
-  FiUser,
-  FiMail,
-  FiEdit3,
-  FiSend,
-} from "react-icons/fi";
 import "./Feedback.css";
+
+import {
+  FiAlertCircle,
+  FiCheck,
+  FiEdit3,
+  FiLoader,
+  FiMail,
+  FiMessageSquare,
+  FiSend,
+  FiUser,
+  FiX,
+} from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+
+import { createPortal } from "react-dom";
 
 function Feedback() {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [loading, setLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -51,11 +57,15 @@ function Feedback() {
     setLoading(true);
     setSubmitStatus(null);
     try {
-      const response = await fetch("http://localhost:8080/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // UPDATED: Pointing to the live Render backend instead of localhost
+      const response = await fetch(
+        "https://slp-dev-backend.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
       if (response.ok) {
         setSubmitStatus("success");
         setFormData({ name: "", email: "", message: "" });
@@ -85,7 +95,11 @@ function Feedback() {
                   <p className="fb-subtitle">We read every message</p>
                 </div>
               </div>
-              <button className="fb-close" onClick={handleCloseModal} aria-label="Close">
+              <button
+                className="fb-close"
+                onClick={handleCloseModal}
+                aria-label="Close"
+              >
                 <FiX size={18} />
               </button>
             </div>
@@ -156,7 +170,12 @@ function Feedback() {
               </div>
 
               <div className="fb-actions">
-                <button type="button" className="fb-cancel" onClick={handleCloseModal} disabled={loading}>
+                <button
+                  type="button"
+                  className="fb-cancel"
+                  onClick={handleCloseModal}
+                  disabled={loading}
+                >
                   Cancel
                 </button>
                 <button type="submit" className="fb-submit" disabled={loading}>
@@ -176,7 +195,7 @@ function Feedback() {
             </form>
           </div>
         </div>,
-        document.body
+        document.body,
       )
     : null;
 
