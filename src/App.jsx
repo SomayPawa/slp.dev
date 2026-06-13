@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import LearningRoadmap from "./components/LearningRoadmap";
 import ProblemDetail from "./pages/ProblemDetail";
+import SDESheet from "./pages/SDESheet";
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/problems" element={<AllProblems />} />
             <Route path="/problem/:id" element={<ProblemDetail />} />
+            <Route path="/sdesheet" element={<SDESheet />} />
             <Route path="/contests" element={<Contests />} />
             <Route path="/daily" element={<DailyChallenge />} />
             <Route path="/blogs" element={<Blogs />} />

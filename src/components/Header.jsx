@@ -2,6 +2,7 @@ import "./Header.css";
 
 import {
   FiAward,
+  FiBook,
   FiBookOpen,
   FiCalendar,
   FiCode,
@@ -19,7 +20,8 @@ function Header({ theme, toggleTheme }) {
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: <FiTrendingUp /> },
-    { path: "/problems", label: "All Problems", icon: <FiCode /> },
+    // { path: "/problems", label: "All Problems", icon: <FiCode /> },
+    { path: "/sdesheet", label: "SDE Sheet", icon: <FiBook /> },
     // { path: "/contests", label: "Contests", icon: <FiAward /> },
     // { path: "/daily", label: "Company Problems", icon: <FiCalendar /> },
     { path: "/blogs", label: "Blogs", icon: <FiBookOpen /> },
