@@ -108,6 +108,78 @@ const sdesheet = [
       },
     ],
   },
+  {
+    topic: "Array Part - 2",
+    problems: [
+      {
+        id: 107,
+        number: 48,
+        title: "Rotate Image",
+        difficulty: "Medium",
+        leetcodeUrl: "https://leetcode.com/problems/rotate-image/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/rotate-image/solutions/8349790/rotate-image-by-somaycoder880-u8i4/",
+        approach:
+          "Traverse only the upper triangular part of the matrix and swap matrix[i][j] with matrix[j][i] to transpose the matrix. For each row, use two pointers (st and ed) to reverse the row in-place. After all rows are reversed, the matrix becomes rotated by 90 degrees clockwise.",
+        timeComplexity: "O(n²)",
+        spaceComplexity: "O(1)",
+        date: "2026-07-08",
+        notes:
+          "Transposing the matrix takes O(n²). Reversing all rows also takes O(n²). Overall complexity is O(n²). Space complexity is O(1) as all operations are in-place.",
+      },
+      {
+        id: 108,
+        number: 56,
+        title: "Merge Intervals",
+        difficulty: "Medium",
+        leetcodeUrl:
+          "https://leetcode.com/problems/merge-intervals/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/merge-intervals/solutions/8349798/merge-intervals-by-somaycoder880-w16o/",
+        approach:
+          "Sort the intervals in ascending order of their start times. Initialize val1 and val2 with the start and end of the first interval. Traverse the remaining intervals: if the current interval overlaps with the previous one (val2 >= ele1), update the ending point using max(val2, ele2). Otherwise, add the current merged interval to the answer and start a new interval. After the traversal, add the last merged interval to the answer.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(n)",
+        date: "2026-07-08",
+        notes:
+          "Sorting the intervals takes O(n log n). Traversing the intervals once takes O(n). Therefore, the overall time complexity is O(n log n). Space complexity is O(n) for storing the result.",
+      },
+      {
+        id: 109,
+        number: 88,
+        title: "Merge Sorted Array",
+        difficulty: "Easy",
+        leetcodeUrl:
+          "https://leetcode.com/problems/merge-sorted-array/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/merge-sorted-array/solutions/8349806/merge-sorted-array-by-somaycoder880-35br/",
+        approach:
+          "Initialize two pointers i and j to traverse nums1 and nums2, respectively. Create a temporary array ans to store the merged elements. Compare nums1[i] and nums2[j]: if nums1[i] is smaller, add it to ans and increment i. Otherwise, add nums2[j] to ans and increment j. After one array is fully traversed, append the remaining elements from the other array. Copy the merged array back into nums1.",
+        timeComplexity: "O(m + n)",
+        spaceComplexity: "O(m + n)",
+        date: "2026-07-08",
+        notes:
+          "Each element from both arrays is processed exactly once. Copying the merged array back into nums1 also takes O(m + n). Therefore, the overall time complexity is O(m + n). Space complexity is O(m + n) for the temporary array.",
+      },
+      {
+        id: 110,
+        number: 287,
+        title: "Find the Duplicate Number",
+        difficulty: "Medium",
+        leetcodeUrl:
+          "https://leetcode.com/problems/find-the-duplicate-number/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/find-the-duplicate-number/solutions/8349801/find-the-duplicate-number-by-somaycoder8-gy5g/",
+        approach:
+          "Sort the given array in ascending order. Traverse the array from index 1 to n-1. For each element, check if it is equal to the previous element. If they are equal, return that element as the duplicate number. If no duplicate is found (which should not happen according to the problem constraints), return -1.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(1)",
+        date: "2026-07-08",
+        notes:
+          "Sorting the array takes O(n log n) time. Traversing the array once takes O(n) time. Therefore, the overall time complexity is O(n log n). Space complexity is O(1).",
+      },
+    ],
+  },
   //   {
   //     topic: "Strings",
   //     problems: [
