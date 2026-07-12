@@ -397,6 +397,33 @@
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
+.hero-stats-quick.sde-stats {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--accent-secondary);
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.hero-stats-quick.sde-stats .quick-stat {
+  background: rgba(102, 51, 153, 0.08);
+  border-color: rgba(102, 51, 153, 0.2);
+}
+
+.hero-stats-quick.sde-stats .quick-stat.stat-link:hover {
+  background: rgba(102, 51, 153, 0.15);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 12px 24px rgba(102, 51, 153, 0.2);
+}
+
+.hero-stats-quick.sde-stats .quick-stat:hover {
+  background: rgba(102, 51, 153, 0.15);
+  border-color: var(--accent-secondary);
+}
+
+.hero-stats-quick.sde-stats .quick-stat-value {
+  color: var(--accent-secondary);
+}
+
 .quick-stat {
   display: flex;
   flex-direction: column;
@@ -406,6 +433,18 @@
   border: 1px solid rgba(0, 122, 204, 0.2);
   border-radius: 1.2rem;
   transition: all 0.3s ease;
+}
+
+.quick-stat.stat-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.quick-stat.stat-link:hover {
+  background: rgba(0, 122, 204, 0.15);
+  border-color: var(--accent-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 122, 204, 0.2);
 }
 
 .quick-stat:hover {

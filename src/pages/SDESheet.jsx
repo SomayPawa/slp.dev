@@ -17,6 +17,7 @@ function SDESheet() {
   const [expandedProblem, setExpandedProblem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
+  const [selectedCompany, setSelectedCompany] = useState("All");
   const [expandedTopics, setExpandedTopics] = useState({});
 
   const getDifficultyColor = (difficulty) => {
@@ -45,7 +46,20 @@ function SDESheet() {
     }
   };
 
-  // Filter problems based on search and difficulty
+  // Get all unique companies from problems
+  const allCompanies = useMemo(() => {
+    const companies = new Set();
+    sdesheet.forEach((topicGroup) => {
+      topicGroup.problems.forEach((problem) => {
+        if (problem.companies) {
+          problem.companies.forEach((company) => companies.add(company));
+        }
+      });
+    });
+    return Array.from(companies).sort();
+  }, []);
+
+  // Filter problems based on search, difficulty, and company
   const filteredAndGroupedProblems = useMemo(() => {
     return sdesheet
       .map((topicGroup) => ({
@@ -53,17 +67,25 @@ function SDESheet() {
         problems: topicGroup.problems.filter((problem) => {
           const matchesSearch =
             problem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            problem.number.toString().includes(searchTerm);
+            problem.number.toString().includes(searchTerm) ||
+            (problem.companies &&
+              problem.companies.some((c) =>
+                c.toLowerCase().includes(searchTerm.toLowerCase()),
+              ));
 
           const matchesDifficulty =
             selectedDifficulty === "All" ||
             problem.difficulty === selectedDifficulty;
 
-          return matchesSearch && matchesDifficulty;
+          const matchesCompany =
+            selectedCompany === "All" ||
+            (problem.companies && problem.companies.includes(selectedCompany));
+
+          return matchesSearch && matchesDifficulty && matchesCompany;
         }),
       }))
       .filter((group) => group.problems.length > 0);
-  }, [searchTerm, selectedDifficulty]);
+  }, [searchTerm, selectedDifficulty, selectedCompany]);
 
   const toggleExpand = (problemId) => {
     setExpandedProblem(expandedProblem === problemId ? null : problemId);
@@ -111,6 +133,22 @@ function SDESheet() {
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
+            </select>
+          </div>
+
+          <div className="filter-group">
+            <FiFilter className="filter-icon" />
+            <select
+              className="filter-select"
+              value={selectedCompany}
+              onChange={(e) => setSelectedCompany(e.target.value)}
+            >
+              <option value="All">All Companies</option>
+              {allCompanies.map((company) => (
+                <option key={company} value={company}>
+                  {company}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -179,6 +217,25 @@ function SDESheet() {
                     {/* Problem Details - Expandable */}
                     {expandedProblem === problem.id && (
                       <div className="problem-details">
+                        {/* Companies */}
+                        {problem.companies && problem.companies.length > 0 && (
+                          <div className="detail-section">
+                            <h4 className="detail-title">🏢 Companies</h4>
+                            <div className="companies-container">
+                              {problem.companies.map((company, idx) => (
+                                <button
+                                  key={idx}
+                                  className="company-badge"
+                                  onClick={() => setSelectedCompany(company)}
+                                  title={`Filter by ${company}`}
+                                >
+                                  {company}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
                         {/* Approach */}
                         <div className="detail-section">
                           <h4 className="detail-title">📝 Approach</h4>

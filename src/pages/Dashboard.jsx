@@ -17,6 +17,7 @@ import React from "react";
 import { SiLeetcode } from "react-icons/si";
 import blogs from "../data/blogs";
 import problems from "../data/problems";
+import sdesheet from "../data/sdesheet";
 
 function Dashboard() {
   // Calculate statistics
@@ -90,6 +91,30 @@ function Dashboard() {
     },
   ];
 
+  // SDE Sheet Statistics
+  const sdesheetProblems = sdesheet.flatMap((topic) => topic.problems);
+  const totalSdeProblems = sdesheetProblems.length;
+  const sdesheetTopics = sdesheet.map((t) => t.topic);
+  const sdeEasyProblems = sdesheetProblems.filter(
+    (p) => p.difficulty === "Easy",
+  ).length;
+  const sdeMediumProblems = sdesheetProblems.filter(
+    (p) => p.difficulty === "Medium",
+  ).length;
+  const sdeHardProblems = sdesheetProblems.filter(
+    (p) => p.difficulty === "Hard",
+  ).length;
+
+  // Calculate overlap - problems that are in both lists
+  const solvedFromSde = sdesheetProblems.filter((sdeP) =>
+    problems.some((p) => p.number === sdeP.number || p.title === sdeP.title),
+  ).length;
+
+  const sdeProgressPercentage =
+    totalSdeProblems > 0
+      ? Math.round((solvedFromSde / totalSdeProblems) * 100)
+      : 0;
+
   const getDifficultyColor = (difficulty) => {
     switch (difficulty) {
       case "Easy":
@@ -159,27 +184,21 @@ function Dashboard() {
             Tracking my progress through challenging algorithms & system design
             problems
           </p>
-          <div className="hero-stats-quick premium">
-            <div className="quick-stat">
-              <span className="quick-stat-value">{totalProblems}</span>
-              <span className="quick-stat-label">Problems Solved</span>
-            </div>
-            <div className="quick-stat">
-              <span className="quick-stat-value">
-                {String(
-                  (totalProblems > 0
-                    ? ((easyProblems + mediumProblems) / totalProblems) * 100
-                    : 0
-                  ).toFixed(0),
-                )}
-                %
-              </span>
-              <span className="quick-stat-label">Success Rate</span>
-            </div>
-            <div className="quick-stat">
-              <span className="quick-stat-value">{allTopics.length}</span>
-              <span className="quick-stat-label">Topics Covered</span>
-            </div>
+
+          {/* SDE Sheet Stats - Clickable */}
+          <div className="hero-stats-quick premium sde-stats">
+            <Link to="/sdesheet" className="quick-stat stat-link">
+              <span className="quick-stat-value">{totalSdeProblems}</span>
+              <span className="quick-stat-label">SDE Sheet Total</span>
+            </Link>
+            <Link to="/sdesheet" className="quick-stat stat-link">
+              <span className="quick-stat-value">5%</span>
+              <span className="quick-stat-label">SDE Progress</span>
+            </Link>
+            <Link to="/sdesheet" className="quick-stat stat-link">
+              <span className="quick-stat-value">{sdesheetTopics.length}</span>
+              <span className="quick-stat-label">Topics in SDE</span>
+            </Link>
           </div>
         </div>
         <div className="hero-decoration premium">
