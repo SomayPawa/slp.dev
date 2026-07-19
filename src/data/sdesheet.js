@@ -418,6 +418,273 @@ const sdesheet = [
       },
     ],
   },
+  {
+    topic: "Array Part - 3",
+    problems: [
+      {
+        id: 111,
+        number: 74,
+        title: "Search a 2D Matrix",
+        difficulty: "Medium",
+        leetcodeUrl:
+          "https://leetcode.com/problems/search-a-2d-matrix/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/search-a-2d-matrix/solutions/8406601/search-a-2d-matrix-by-somaycoder880-qmud",
+        approach:
+          "Since every row is sorted in ascending order, the target can only be present in a row where it lies between the first and last element of that row. Once such a row is identified, we can efficiently search for the target using Binary Search. Traverse each row of the matrix. For every row, check if the target lies between the first and last element of that row. If it does, perform Binary Search on that row. If the target is found, return true. If no suitable row contains the target, return false.",
+        timeComplexity: "O(n * log m)",
+        spaceComplexity: "O(1)",
+        date: "2026-07-19",
+        notes:
+          "In the worst case, we may check all n rows, and Binary Search on a row takes O(log m). Only a few extra variables are used.",
+        companies: [
+          "Coupang",
+          "Visa",
+          "Grab",
+          "Intel",
+          "Amazon",
+          "Infosys",
+          "Bloomberg",
+          "Microsoft",
+          "ServiceNow",
+          "Walmart Labs",
+          "Accenture",
+          "Cisco",
+          "Meta",
+          "Snap",
+          "Google",
+          "Flipkart",
+          "Adobe",
+          "Goldman Sachs",
+          "Yahoo",
+          "Apple",
+          "Uber",
+          "Yandex",
+        ],
+      },
+      {
+        id: 112,
+        number: 169,
+        title: "Majority Element",
+        difficulty: "Easy",
+        leetcodeUrl:
+          "https://leetcode.com/problems/majority-element/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/majority-element/solutions/8406607/majority-element-by-somaycoder880-f5nq",
+        approach:
+          "Since the majority element appears more than ⌊n / 2⌋ times, sorting the array groups all identical elements together. After sorting, we can count the frequency of each element consecutively and return the one whose count exceeds n / 2. Sort the given array. Traverse the sorted array while counting consecutive occurrences of each element. Whenever a different element is encountered, check if the previous element's count is greater than n / 2. If yes, return that element. After the loop, perform one final check for the last element since it may be the majority element. If no majority element is found, return -1.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(1)",
+        date: "2026-07-19",
+        notes:
+          "Sorting the array takes O(n log n), and the subsequent traversal takes O(n). No extra space is used apart from a few variables (ignoring the space used internally by the sorting algorithm).",
+        companies: [
+          "Zenefits",
+          "tcs",
+          "MakeMyTrip",
+          "Swiggy",
+          "Wipro",
+          "SAP",
+          "DE Shaw",
+          "Accenture",
+          "eBay",
+          "Nvidia",
+          "Media.net",
+          "Oracle",
+          "IBM",
+          "Yandex",
+          "Salesforce",
+        ],
+      },
+      {
+        id: 113,
+        number: 229,
+        title: "Majority Element II",
+        difficulty: "Medium",
+        leetcodeUrl:
+          "https://leetcode.com/problems/majority-element-ii/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/majority-element-ii/solutions/8406609/majority-element-ii-by-somaycoder880-gi1z",
+        approach:
+          "Since the array is sorted, all occurrences of the same element become consecutive. This allows us to count the frequency of each distinct element in a single traversal. Any element whose frequency is greater than ⌊n / 3⌋ is added to the answer. Sort the given array. Traverse the sorted array while maintaining the count of consecutive occurrences of the current element. Whenever a different element is encountered, check if the previous element's count is greater than n / 3. If it is, add that element to the result. Reset the count for the new element and continue the traversal. After the loop, perform one final frequency check for the last element, as it may also satisfy the condition.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(1)",
+        date: "2026-07-19",
+        notes:
+          "Sorting the array takes O(n log n), followed by a single traversal of O(n). Only a few extra variables are used (excluding the output vector).",
+        companies: ["Zenefits", "Atlassian", "Accenture", "Salesforce"],
+      },
+      {
+        id: 114,
+        number: 62,
+        title: "Unique Paths",
+        difficulty: "Medium",
+        leetcodeUrl: "https://leetcode.com/problems/unique-paths/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/unique-paths/solutions/8406625/unique-paths-by-somaycoder880-pexq",
+        approach:
+          "From any cell in the grid, there are only two possible moves: right or down. The total number of unique paths from a cell is therefore the sum of the unique paths obtained by moving right and moving down. Since many subproblems are repeated, memoization is used to avoid redundant computations. Define a recursive function solve(i, j) that returns the number of unique paths from cell (i, j) to the destination. Base cases: If the current cell is the destination (m-1, n-1), return 1. If the current cell goes outside the grid, return 0. Use a dp table initialized with -1 to store already computed results. If the result for the current cell is already present in dp, return it directly. Otherwise, recursively compute paths by moving down and right, store their sum in dp and return it.",
+        timeComplexity: "O(m × n)",
+        spaceComplexity: "O(m × n)",
+        date: "2026-07-19",
+        notes:
+          "Each cell is computed only once because of memoization. O(m × n) for the memoization table and up to O(m + n) recursive call stack.",
+        companies: [
+          "Coupang",
+          "Cruise",
+          "ByteDance",
+          "Zomato",
+          "Bloomberg",
+          "tcs",
+          "DE Shaw",
+          "Amazon",
+          "Microsoft",
+          "Adobe",
+          "Intuit",
+          "Oracle",
+          "Meta",
+          "Roblox",
+          "Citadel",
+          "Apple",
+          "Uber",
+          "Yahoo",
+          "J.P. Morgan",
+          "TikTok",
+          "Goldman Sachs",
+        ],
+      },
+      {
+        id: 115,
+        number: 493,
+        title: "Reverse Pairs",
+        difficulty: "Hard",
+        leetcodeUrl: "https://leetcode.com/problems/reverse-pairs/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/reverse-pairs/solutions/8406610/reverse-pairs-by-somaycoder880-tuiv",
+        approach:
+          "A brute force approach checks every pair (i, j) where i < j in O(n²) time. We can optimize this using Merge Sort. Since the left and right halves are already sorted during the merge step, we can efficiently count the reverse pairs using two pointers before merging the two halves. Use Merge Sort to recursively divide the array into two halves. Before merging the two sorted halves, count the reverse pairs: For every element in the left half, move a pointer in the right half while nums[i] > 2 * nums[j]. The number of valid indices in the right half contributes to the answer. After counting, merge the two sorted halves into a single sorted array. Continue this process recursively until the entire array is sorted.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(n)",
+        date: "2026-07-19",
+        notes:
+          "Merge Sort divides the array into log n levels, and each level processes all n elements. An auxiliary array is used during the merge step.",
+        companies: [],
+      },
+    ],
+  },
+  {
+    topic: "Array Part - 4",
+    problems: [
+      {
+        id: 116,
+        number: 1,
+        title: "Two Sum",
+        difficulty: "Easy",
+        leetcodeUrl: "https://leetcode.com/problems/two-sum/",
+        solutionUrl:
+          "https://leetcode.com/problems/two-sum/solutions/8406639/two-sum-by-somaycoder880-ei4f",
+        approach:
+          "Store each element along with its original index as a pair (value, index). Sort the vector of pairs based on the element values. Initialize two pointers: low at the beginning and high at the end. Calculate the sum of the values at both pointers: If the sum equals the target, return their original indices. If the sum is greater than the target, move the high pointer to the left. Otherwise, move the low pointer to the right. Continue until the required pair is found.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(n)",
+        date: "2026-07-19",
+        notes:
+          "Sorting the array takes O(n log n), and the two-pointer traversal takes O(n). Extra space is used to store the value-index pairs.",
+        companies: [
+          "Yahoo",
+          "Wipro",
+          "SAP",
+          "Microsoft",
+          "Infosys",
+          "Google",
+          "Capgemini",
+          "Bloomberg",
+          "Apple",
+          "Amazon",
+        ],
+      },
+      {
+        id: 117,
+        number: 18,
+        title: "4Sum",
+        difficulty: "Medium",
+        leetcodeUrl: "https://leetcode.com/problems/4sum/",
+        solutionUrl:
+          "https://leetcode.com/problems/4sum/solutions/8406613/4sum-by-somaycoder880-e1n2",
+        approach:
+          "After sorting the array, fix the first two elements using nested loops and use the two-pointer technique to find the remaining two elements. Since duplicate quadruplets may be generated, a set is used to store only unique combinations. Calculate the sum of the four elements: If the sum equals the target, insert the quadruplet into a set to avoid duplicates and move the left pointer. If the sum is smaller than the target, move the left pointer forward. Otherwise, move the right pointer backward. After processing all possible combinations, copy the unique quadruplets from the set into the answer vector.",
+        timeComplexity: "O(n³ log k)",
+        spaceComplexity: "O(k)",
+        date: "2026-07-19",
+        notes:
+          "The two nested loops and two-pointer traversal take O(n³). Each insertion into the set takes O(log k), where k is the number of unique quadruplets. Extra space is used by the set to store unique quadruplets.",
+        companies: [
+          "Amazon",
+          "Google",
+          "Apple",
+          "Microsoft",
+          "Bloomberg",
+          "Rubrik",
+          "Samsung",
+          "Yahoo",
+          "Adobe",
+          "Uber",
+          "Meta",
+          "TikTok",
+          "Oracle",
+          "tcs",
+        ],
+      },
+      {
+        id: 118,
+        number: 128,
+        title: "Longest Consecutive Sequence",
+        difficulty: "Medium",
+        leetcodeUrl:
+          "https://leetcode.com/problems/longest-consecutive-sequence/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/longest-consecutive-sequence/solutions/8406615/longest-consecutive-sequence-by-somaycod-g5da",
+        approach:
+          "Duplicate elements do not contribute to the length of a consecutive sequence, so we first remove them. After obtaining the unique elements in sorted order, the longest consecutive sequence can be found by counting the length of consecutive increasing numbers. If the array is empty, return 0. Insert all elements into an unordered_set to remove duplicates. Copy the unique elements into a new vector and sort it. Traverse the sorted unique array: If the current element is exactly one greater than the previous element, increment the current sequence length. Otherwise, update the maximum sequence length found so far and reset the count to 1. After the traversal, perform one final update of the maximum length.",
+        timeComplexity: "O(n log n)",
+        spaceComplexity: "O(n)",
+        date: "2026-07-19",
+        notes:
+          "Inserting into the unordered_set takes O(n) on average. Sorting the unique elements takes O(n log n) in the worst case. The final traversal takes O(n). Extra space is used for the unordered_set and the vector storing unique elements.",
+        companies: [],
+      },
+      {
+        id: 119,
+        number: 3,
+        title: "Longest Substring Without Repeating Characters",
+        difficulty: "Medium",
+        leetcodeUrl:
+          "https://leetcode.com/problems/longest-substring-without-repeating-characters/description/",
+        solutionUrl:
+          "https://leetcode.com/problems/longest-substring-without-repeating-characters/solutions/8406616/longest-substring-without-repeating-char-8u1e",
+        approach:
+          "A substring with all unique characters can be maintained using the Sliding Window technique. As we expand the window, we keep track of the frequency of each character. If a duplicate character appears, we shrink the window from the left until all characters in the current window are unique again. Initialize two pointers (left and right) to represent the current sliding window. Use an unordered_map to store the frequency of characters inside the window. Expand the window by moving the right pointer and updating the character frequency. If the current character appears more than once, shrink the window by moving the left pointer and decreasing character frequencies until the duplicate is removed. Whenever the current window contains only unique characters, update the maximum window length.",
+        timeComplexity: "O(n)",
+        spaceComplexity: "O(min(n, k))",
+        date: "2026-07-19",
+        notes:
+          "Each character is added to and removed from the sliding window at most once. The unordered_map stores at most one entry for each distinct character, where k is the size of the character set.",
+        companies: [
+          "Tinkoff",
+          "Tesla",
+          "Spotify",
+          "Walmart Labs",
+          "Yelp",
+          "EPAM Systems",
+          "Zoho",
+          "Agoda",
+          "TikTok",
+          "Oracle",
+          "Bloomberg",
+        ],
+      },
+    ],
+  },
   //   {
   //     topic: "Strings",
   //     problems: [
